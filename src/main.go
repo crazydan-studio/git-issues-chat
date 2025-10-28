@@ -13,16 +13,10 @@ import (
 )
 
 func initAppEnv(dataPath string) (*sql.DB, error) {
-	// Create data directory if it doesn't exist
-	err := os.MkdirAll(dataPath, 0755)
-	if err != nil {
-		return nil, fmt.Errorf("failed to create data directory: %v", err)
-	}
-
 	// Database file path
 	dbPath := filepath.Join(dataPath, "chat.db")
 
-	// Open SQLite database
+	// Open SQLite database (this will create the file if it doesn't exist)
 	db, err := sql.Open("sqlite3", dbPath)
 	if err != nil {
 		return nil, fmt.Errorf("failed to open database: %v", err)

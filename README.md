@@ -20,11 +20,14 @@ Git Issues Chat provides a familiar chat interface for GitHub collaboration, mak
 ```
 git-issues-chat/
 ├── build/          # Build scripts
+│   ├── bin/        # Runtime scripts
+│   └── build.sh    # Main build script
 ├── deps/           # Third-party dependencies
 ├── dist/           # Build output
 │   ├── bin/        # Executable files
 │   ├── ui/         # UI build output
-│   └── data/       # Application runtime data
+│   ├── data/       # Application runtime data
+│   └── chat.sh     # Runtime script
 ├── docs/           # Documentation
 │   └── stages/     # Stage development documentation
 ├── src/            # Source code
@@ -38,7 +41,7 @@ git-issues-chat/
 ### Prerequisites
 
 - Go 1.21 or later
-- Node.js and npm
+- Node.js 20+ and npm
 - Git
 
 ### Building the Project
@@ -58,18 +61,20 @@ This will:
 - Build the Svelte UI with Tailwind CSS
 - Compile the Go application
 - Generate both release and debug versions
+- Copy the runtime script to the dist directory
 
 ### Running the Application
 
 After building, run the application using the provided script:
 
 ```bash
-./dist/run.sh [--debug] [--browser firefox|chrome|edge]
+./dist/chat.sh [--debug] [--browser firefox|chrome|edge] [--help]
 ```
 
 Options:
 - `--debug`: Run the debug version of the application
 - `--browser`: Specify the browser to use (default: firefox)
+- `--help`: Display usage information
 
 ### Development Commands
 

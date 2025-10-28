@@ -55,4 +55,8 @@ go build -tags "webui_std webui_no_cgo" -ldflags "-s -w" -o dist/bin/chat src/ma
 echo "Building debug version..."
 go build -tags "webui_log webui_std webui_no_cgo" -o dist/bin/chat-debug src/main.go
 
+# Copy chat.sh script to dist directory
+echo "Copying chat.sh script to dist directory..."
+cp "$PROJECT_ROOT/build/bin/chat.sh" "$PROJECT_ROOT/dist/"
+
 echo "Build completed successfully!"

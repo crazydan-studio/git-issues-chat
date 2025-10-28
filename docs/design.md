@@ -35,11 +35,14 @@ GitHub API ↔ Application Core ↔ SQLite Database ↔ UI Layer
 ```
 git-issues-chat/
 ├── build/          # Build scripts
+│   ├── bin/        # Runtime scripts
+│   └── build.sh    # Main build script
 ├── deps/           # Third-party dependencies
 ├── dist/           # Build output
 │   ├── bin/        # Executable files
 │   ├── ui/         # UI build output
-│   └── data/       # Application runtime data
+│   ├── data/       # Application runtime data
+│   └── chat.sh     # Copied runtime script
 ├── docs/           # Documentation
 │   └── stages/     # Stage development documentation
 ├── src/            # Source code
@@ -54,6 +57,7 @@ git-issues-chat/
 - Basic project structure and build system
 - Skeleton application with WebUI integration
 - Simple welcome UI to verify technical approach
+- Implementation of runtime script with proper error handling and help support
 
 ### Phase 1: GitHub Integration
 - GitHub authentication and API access
@@ -86,8 +90,26 @@ The build process is handled by `build/build.sh` which:
 2. Updates version information
 3. Builds the Svelte UI with Tailwind CSS
 4. Compiles the Golang application in both release and debug modes
+5. Copies `build/bin/chat.sh` to `dist/chat.sh`
+
+## Runtime Script
+The application is run using `dist/chat.sh` which:
+- Supports `--debug` flag to run debug version
+- Accepts `--browser` parameter (default: firefox)
+- Provides `--help` for usage information
+- Automatically creates data directory if needed
+- Performs comprehensive permission checks
+- Uses paths relative to its own location for portability
 
 ## Runtime Requirements
 - Supported browsers: Firefox, Chrome, Edge
 - Environment variable: `WEBKIT_DISABLE_DMABUF_RENDERER=1` (for WebKit compatibility)
 - Required directories: data storage and UI assets
+
+## Technical Notes
+
+### Tailwind CSS Font Size Handling
+Due to Tailwind CSS v4's content-based purging, predefined font size classes may not be included in the build. For reliable font size control, arbitrary value notation (e.g., `text-[72px]`) is used instead of predefined classes (e.g., `text-8xl`).
+
+### Data Directory Management
+The application no longer automatically creates the data directory. This responsibility has been moved to the runtime script, which automatically creates the data directory if it doesn't exist, providing better separation of concerns.
