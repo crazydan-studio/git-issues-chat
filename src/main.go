@@ -81,7 +81,10 @@ func main() {
 	}
 
 	// Show the UI in the specified browser
-	w.ShowBrowser("index.html", browserType)
+	err = w.ShowBrowser("index.html", browserType)
+	if err != nil {
+		log.Fatal("Failed to show browser window:", err)
+	}
 
 	// Wait for the window to be closed
 	webui.Wait()
