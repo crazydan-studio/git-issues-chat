@@ -1,220 +1,220 @@
-# Git Issues Chat - AI Implementation Prompts
+# Git Issues Chat - AI 实现提示
 
-This document contains the complete, organized prompts and requirements for implementing the Git Issues Chat desktop application. These prompts are designed to be executed by an AI assistant to implement the project systematically.
+本文档包含了实现 Git Issues Chat 桌面应用程序的完整、有组织的提示和要求。这些提示专为 AI 助手设计，以系统化的方式执行项目实现。
 
-## Project Overview
+## 项目概述
 
-Design and implement a desktop chat application named `Git Issues Chat` that uses GitHub repositories as chat platforms, repositories as chat rooms, Issues as topics, and Comments as messages. This enables real-time issue handling and collaboration through a chat interface.
+设计并实现一个名为 `Git Issues Chat` 的桌面聊天应用程序，该应用使用 GitHub 仓库作为聊天平台，仓库作为聊天室，Issues 作为话题，Comments 作为消息。这使得通过聊天界面实现实时问题处理和协作成为可能。
 
-## Technology Stack
+## 技术栈
 
-- **Backend**: Golang for core application logic, data management, and GitHub API integration
-- **Frontend**: Svelte with Tailwind CSS for the user interface
-- **UI Framework**: Go-WebUI for desktop application deployment
-- **Database**: SQLite for local data storage
-- **Build System**: Vite for UI bundling
+- **后端**: Golang 用于核心应用逻辑、数据管理和 GitHub API 集成
+- **前端**: Svelte 配合 Tailwind CSS 用于用户界面
+- **UI 框架**: Go-WebUI 用于桌面应用程序部署
+- **数据库**: SQLite 用于本地数据存储
+- **构建系统**: Vite 用于 UI 打包
 
-## Project Structure
+## 项目结构
 
 ```
 git-issues-chat/
-├── build/          # Build scripts
-│   ├── bin/        # Runtime scripts
-│   └── build.sh    # Main build script
-├── deps/           # Third-party dependencies
-├── dist/           # Build output
-│   ├── bin/        # Executable files
-│   ├── ui/         # UI build output
-│   ├── data/       # Application runtime data
-│   └── chat.sh     # Runtime script
-├── docs/           # Documentation
-│   └── stages/     # Stage development documentation
-├── src/            # Source code
-│   ├── main.go     # Application entry point
-│   └── ui/         # Svelte UI project
-└── VERSION         # Application version
+├── build/          # 构建脚本
+│   ├── bin/        # 运行时脚本
+│   └── build.sh    # 主构建脚本
+├── deps/           # 第三方依赖
+├── dist/           # 构建输出
+│   ├── bin/        # 可执行文件
+│   ├── ui/         # UI 构建输出
+│   ├── data/       # 应用运行时数据
+│   └── chat.sh     # 运行时脚本
+├── docs/           # 文档
+│   └── stages/     # 阶段开发文档
+├── src/            # 源代码
+│   ├── main.go     # 应用入口点
+│   └── ui/         # Svelte UI 项目
+└── VERSION         # 应用版本
 ```
 
-## Phase 1: Project Foundation (Stage 0)
+## 第一阶段：项目基础（阶段 0）
 
-### Task 1: Initialize Project Structure
+### 任务 1：初始化项目结构
 
-Create the project directory structure as specified above with the following requirements:
+按照上述要求创建项目目录结构：
 
-1. Initialize git repository
-2. Create VERSION file with version "0.1.0"
-3. Add Apache 2.0 LICENSE file
-4. Set up proper .gitignore to exclude dist/ and deps/ directories
+1. 初始化 git 仓库
+2. 创建 VERSION 文件，版本为 "0.1.0"
+3. 添加 Apache 2.0 LICENSE 文件
+4. 设置适当的 .gitignore 以排除 dist/ 和 deps/ 目录
 
-### Task 2: Set up Golang Project
+### 任务 2：设置 Golang 项目
 
-Create `src/main.go` with the following functionality:
+创建 `src/main.go`，包含以下功能：
 
-1. Command-line argument parsing:
-   - `--data-path`: Path to data directory (required)
-   - `--ui-path`: Path to UI directory (required)
-   - `--browser`: Browser to use (firefox, chrome, edge) (required)
-   - `--version`: Print version information ("Git Issues Chat v0.1.0")
+1. 命令行参数解析：
+   - `--data-path`: 数据目录路径（必需）
+   - `--ui-path`: UI 目录路径（必需）
+   - `--browser`: 使用的浏览器（firefox, chrome, edge）（必需）
+   - `--version`: 打印版本信息（"Git Issues Chat v0.1.0"）
 
-2. Database initialization function `initAppEnv`:
-   - Takes dataPath parameter
-   - Creates data directory if it doesn't exist
-   - Initializes SQLite database at `{dataPath}/chat.db`
-   - Returns database object
+2. 数据库初始化函数 `initAppEnv`：
+   - 接受 dataPath 参数
+   - 如果不存在则创建数据目录
+   - 在 `{dataPath}/chat.db` 初始化 SQLite 数据库
+   - 返回数据库对象
 
-3. WebUI integration:
-   - Create WebUI window
-   - Set root folder to ui-path
-   - Show browser window with index.html using specified browser
-   - Wait for window to close
+3. WebUI 集成：
+   - 创建 WebUI 窗口
+   - 设置根文件夹为 ui-path
+   - 使用指定浏览器显示 index.html
+   - 等待窗口关闭
 
-4. Dependencies:
-   - github.com/mattn/go-sqlite3 for SQLite support
-   - github.com/webui-dev/go-webui/v2 for WebUI integration
+4. 依赖：
+   - github.com/mattn/go-sqlite3 用于 SQLite 支持
+   - github.com/webui-dev/go-webui/v2 用于 WebUI 集成
 
-### Task 3: Set up Svelte + Tailwind CSS UI
+### 任务 3：设置 Svelte + Tailwind CSS UI
 
-Initialize Svelte project in `src/ui` with:
+在 `src/ui` 中初始化 Svelte 项目：
 
-1. Tailwind CSS integration:
-   - Install tailwindcss, postcss, autoprefixer
-   - Configure tailwind.config.js and postcss.config.js
-   - Add Tailwind directives to app.css
+1. Tailwind CSS 集成：
+   - 安装 tailwindcss, postcss, autoprefixer
+   - 配置 tailwind.config.js 和 postcss.config.js
+   - 在 app.css 中添加 Tailwind 指令
 
-2. Welcome page requirements:
-   - Full-screen centered layout
-   - Text: "👏 Hello, WebUI Desktop!" with 72px font size
-   - Body should occupy full viewport
+2. 欢迎页面要求：
+   - 全屏居中布局
+   - 文本："👏 Hello, WebUI Desktop!" 字体大小 72px
+   - Body 应占据整个视口
 
-3. Build configuration:
-   - Set output directory to `../../dist/ui`
-   - Include webui.js script in index.html
+3. 构建配置：
+   - 设置输出目录为 `../../dist/ui`
+   - 在 index.html 中包含 webui.js 脚本
 
-4. Package configuration:
-   - Set package name to "git-issues-chat-ui"
-   - Set version to match project version
+4. 包配置：
+   - 设置包名为 "git-issues-chat-ui"
+   - 设置版本与项目版本匹配
 
-### Task 4: Implement Build System
+### 任务 4：实现构建系统
 
-Create `build/build.sh` script that:
+创建 `build/build.sh` 脚本：
 
-1. Reads version from VERSION file
-2. Updates version in:
-   - src/main.go (for --version flag)
+1. 从 VERSION 文件读取版本
+2. 更新版本信息：
+   - src/main.go（用于 --version 标志）
    - src/ui/package.json
-3. Cleans dist directories
-4. Builds UI with Tailwind CSS support
-5. Fetches go-webui dependency:
-   - Clone to deps/go-webui if not exists
-   - Update if exists
-6. Builds Go application:
-   - Release version: dist/bin/chat with optimization flags (-s -w)
-   - Debug version: dist/bin/chat-debug with debug flags
-7. Copies build/bin/chat.sh to dist/chat.sh
-8. Includes error checking for all critical steps
+3. 清理 dist 目录
+4. 使用 Tailwind CSS 支持构建 UI
+5. 获取 go-webui 依赖：
+   - 如果不存在则克隆到 deps/go-webui
+   - 如果存在则更新
+6. 构建 Go 应用程序：
+   - 发布版本：dist/bin/chat 带优化标志（-s -w）
+   - 调试版本：dist/bin/chat-debug 带调试标志
+7. 复制 build/bin/chat.sh 到 dist/chat.sh
+8. 包含所有关键步骤的错误检查
 
-### Task 5: Implement Runtime Script
+### 任务 5：实现运行时脚本
 
-Create `build/bin/chat.sh` script that:
+创建 `build/bin/chat.sh` 脚本：
 
-1. Command-line arguments:
-   - `--debug`: Run debug version
-   - `--browser`: Specify browser (firefox, chrome, edge)
-   - `--help`: Display usage information
+1. 命令行参数：
+   - `--debug`: 运行调试版本
+   - `--browser`: 指定浏览器（firefox, chrome, edge）
+   - `--help`: 显示使用信息
 
-2. Path management:
-   - Uses paths relative to script location
+2. 路径管理：
+   - 使用相对于脚本位置的路径
    - DATA_PATH: {script_dir}/data
    - UI_PATH: {script_dir}/ui
-   - EXECUTABLE: {script_dir}/bin/chat or chat-debug
+   - EXECUTABLE: {script_dir}/bin/chat 或 chat-debug
 
-3. Directory management:
-   - Automatically creates data directory if it doesn't exist
-   - Validates UI directory exists
+3. 目录管理：
+   - 如果不存在则自动创建数据目录
+   - 验证 UI 目录存在
 
-4. Permission checks:
-   - Data directory: readable and writable
-   - UI directory and files: readable
-   - Executable: executable
+4. 权限检查：
+   - 数据目录：可读可写
+   - UI 目录和文件：可读
+   - 可执行文件：可执行
 
-5. Environment:
-   - Sets WEBKIT_DISABLE_DMABUF_RENDERER=1
-   - Passes correct parameters to application
+5. 环境：
+   - 设置 WEBKIT_DISABLE_DMABUF_RENDERER=1
+   - 向应用程序传递正确参数
 
-### Task 6: Documentation
+### 任务 6：文档
 
-Create/update documentation files:
+创建/更新文档文件：
 
-1. `docs/stages/stage-0.md`:
-   - Document all tasks completed
-   - Record issues encountered and solutions
-   - Include technical details about Tailwind CSS font size issue:
-     * Problem: Predefined classes not working due to Tailwind v4 purging
-     * Solution: Use arbitrary value notation (text-[72px])
-   - Document file organization changes
-   - Document permission and directory creation changes
+1. `docs/stages/stage-0.md`：
+   - 记录所有已完成任务
+   - 记录遇到的问题和解决方案
+   - 包含 Tailwind CSS 字体大小问题的技术细节：
+     * 问题：由于 Tailwind v4 清理，预定义类不工作
+     * 解决方案：使用任意值表示法（text-[72px]）
+   - 记录文件组织变更
+   - 记录权限和目录创建变更
 
-2. `docs/design.md`:
-   - Update project structure diagram
-   - Document technical notes about Tailwind CSS handling
-   - Update runtime script information
+2. `docs/design.md`：
+   - 更新项目结构图
+   - 记录 Tailwind CSS 处理的技术说明
+   - 更新运行时脚本信息
 
-3. `README.md`:
-   - Update project structure
-   - Update usage instructions
-   - Document prerequisites (Node.js 20+)
+3. `README.md`：
+   - 更新项目结构
+   - 更新使用说明
+   - 记录先决条件（Node.js 20+）
 
-### Task 7: Version Control
+### 任务 7：版本控制
 
-Commit all changes with appropriate commit messages including:
-- Project structure initialization
-- Core application implementation
-- UI implementation
-- Build system implementation
-- Documentation updates
-- Error handling improvements
+提交所有更改并附上适当的提交信息，包括：
+- 项目结构初始化
+- 核心应用程序实现
+- UI 实现
+- 构建系统实现
+- 文档更新
+- 错误处理改进
 
-## Technical Requirements and Constraints
+## 技术要求和约束
 
-### Tailwind CSS Font Size Handling
+### Tailwind CSS 字体大小处理
 
-Due to Tailwind CSS v4's content-based purging, predefined font size classes may not be included in the build. For reliable font size control, use arbitrary value notation (e.g., `text-[72px]`) instead of predefined classes (e.g., `text-8xl`).
+由于 Tailwind CSS v4 的内容基础清理，预定义的字体大小类可能不会包含在构建中。为了可靠的字体大小控制，使用任意值表示法（例如 `text-[72px]`）而不是预定义类（例如 `text-8xl`）。
 
-### Data Directory Management
+### 数据目录管理
 
-The application should not automatically create the data directory. This responsibility should be moved to the runtime script, which should automatically create the data directory if it doesn't exist, providing better separation of concerns.
+应用程序不应自动创建数据目录。此责任应转移到运行时脚本，该脚本应在数据目录不存在时自动创建，从而提供更好的关注点分离。
 
-### Error Handling
+### 错误处理
 
-All critical operations should include proper error handling:
-- Go-webui fetching failures
-- Application executable build failures
-- Browser window opening failures
-- File permission and existence checks
+所有关键操作都应包含适当的错误处理：
+- Go-webui 获取失败
+- 应用程序可执行文件构建失败
+- 浏览器窗口打开失败
+- 文件权限和存在性检查
 
-### Path Management
+### 路径管理
 
-All scripts should use paths relative to their own location for better portability rather than absolute paths or complex path resolution logic.
+所有脚本都应使用相对于其自身位置的路径，以获得更好的可移植性，而不是绝对路径或复杂的路径解析逻辑。
 
-## Quality Assurance
+## 质量保证
 
-1. All builds should complete without errors
-2. Generated executables should run correctly
-3. UI should display properly with correct font sizes
-4. All documentation should be accurate and up-to-date
-5. Git commits should be atomic and well-documented
-6. Error messages should be clear and helpful
-7. Help documentation should be comprehensive
+1. 所有构建应无错误完成
+2. 生成的可执行文件应正确运行
+3. UI 应正确显示，字体大小正确
+4. 所有文档应准确且最新
+5. Git 提交应具有原子性且文档完整
+6. 错误消息应清晰且有帮助
+7. 帮助文档应全面
 
-## Verification Steps
+## 验证步骤
 
-1. Run build script successfully
-2. Verify dist directory contents:
-   - bin/chat and bin/chat-debug executables
-   - ui/ directory with built assets
-   - chat.sh script
-   - data/ directory
-3. Test runtime script with various options
-4. Verify help functionality works
-5. Check error handling for missing files/directories
-6. Confirm all documentation is accurate and complete
+1. 成功运行构建脚本
+2. 验证 dist 目录内容：
+   - bin/chat 和 bin/chat-debug 可执行文件
+   - ui/ 目录与构建资产
+   - chat.sh 脚本
+   - data/ 目录
+3. 使用各种选项测试运行时脚本
+4. 验证帮助功能是否正常工作
+5. 检查缺失文件/目录的错误处理
+6. 确认所有文档准确完整
