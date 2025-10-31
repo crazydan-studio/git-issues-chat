@@ -68,24 +68,18 @@ func GetGitPlatformRepoList(e ui.Event) any {
 	
 	platformId, _ := params["platformId"].(string)
 	
-	// For simulation, return some sample repositories
-	repos := []map[string]interface{}{
-		{
-			"id":          "0192d4a4-75d4-7f8a-8c7d-2f8b0d4f1a82",
+	// For simulation, return 20 sample repositories
+	repos := make([]map[string]interface{}, 20)
+	
+	for i := 0; i < 20; i++ {
+		repos[i] = map[string]interface{}{
+			"id":          fmt.Sprintf("0192d4a4-75d4-7f8a-8c7d-2f8b0d4f1a%02d", i+2),
 			"platform":    platformId,
-			"name":        "user1/repository1",
-			"url":         "https://github.com/user1/repository1",
-			"icon":        "repo-icon-hash-1",
-			"description": "This is a sample repository for demonstration purposes.",
-		},
-		{
-			"id":          "0192d4a4-75d4-7f8a-8c7d-2f8b0d4f1a83",
-			"platform":    platformId,
-			"name":        "user2/repository2",
-			"url":         "https://github.com/user2/repository2",
-			"icon":        "repo-icon-hash-2",
-			"description": "Another sample repository with a longer description that might overflow and need to be truncated.",
-		},
+			"name":        fmt.Sprintf("user%d/repository%d", (i%5)+1, i+1),
+			"url":         fmt.Sprintf("https://github.com/user%d/repository%d", (i%5)+1, i+1),
+			"icon":        fmt.Sprintf("repo-icon-hash-%d", i+1),
+			"description": fmt.Sprintf("This is sample repository #%d for demonstration purposes on platform %s.", i+1, platformId),
+		}
 	}
 	
 	result := map[string]interface{}{
