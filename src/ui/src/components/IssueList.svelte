@@ -60,6 +60,7 @@ function addIssue() {
                                     </div>
                                     <p class="text-xs text-gray-500 truncate">{issue.author.displayName}</p>
                                 </div>
+                                <span class="text-xs text-gray-500">•</span>
                                 <span class="text-xs text-gray-500">{issue.createdAt.split(' ')[0]}</span>
                             </div>
                         </button>
