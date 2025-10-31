@@ -10,6 +10,7 @@ import (
 	"github.com/webui-dev/go-webui/v2"
 	"database/sql"
 	_ "github.com/mattn/go-sqlite3"
+	"git-issues-chat/src/handlers"
 )
 
 func initAppEnv(dataPath string) (*sql.DB, error) {
@@ -63,6 +64,29 @@ func main() {
 
 	// Create new webui window
 	w := webui.NewWindow()
+
+	// Bind handler functions to the window
+	// App handlers
+	w.Bind("getAppInfo", handlers.GetAppInfo)
+	w.Bind("verifyAppUser", handlers.VerifyAppUser)
+	w.Bind("saveAppUserInfo", handlers.SaveAppUserInfo)
+	w.Bind("updateAppUserPassword", handlers.UpdateAppUserPassword)
+
+	// Platform handlers
+	w.Bind("getGitPlatformList", handlers.GetGitPlatformList)
+	w.Bind("saveGitPlatform", handlers.SaveGitPlatform)
+	w.Bind("getGitPlatformRepoList", handlers.GetGitPlatformRepoList)
+	w.Bind("getGitPlatformRepoInfo", handlers.GetGitPlatformRepoInfo)
+	w.Bind("saveGitPlatformRepo", handlers.SaveGitPlatformRepo)
+
+	// Repo handlers
+	w.Bind("getGitRepoIssueList", handlers.GetGitRepoIssueList)
+	w.Bind("saveGitRepoIssue", handlers.SaveGitRepoIssue)
+
+	// Issue handlers
+	w.Bind("getGitIssueCommentList", handlers.GetGitIssueCommentList)
+	w.Bind("getGitIssueParticipantList", handlers.GetGitIssueParticipantList)
+	w.Bind("saveGitIssueComment", handlers.SaveGitIssueComment)
 
 	// Set the root folder for UI files
 	w.SetRootFolder(*uiPath)
