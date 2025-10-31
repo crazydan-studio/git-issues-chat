@@ -7,28 +7,33 @@ import (
 
 // GetGitIssueCommentList returns list of comments for a Git issue
 func GetGitIssueCommentList(e ui.Event) any {
-	// For simulation, return some sample comments
-	comments := []map[string]interface{}{
-		{
-			"id": "0192d4a4-75d4-7f8a-8c7d-2f8b0d4f1a86",
+	// For simulation, return 30 sample comments with 10 from current user
+	comments := make([]map[string]interface{}, 30)
+	
+	for i := 0; i < 30; i++ {
+		// Make 10 comments from the current user (dev1) and 20 from other users
+		var username, displayName string
+		if i < 10 {
+			// Comments from current user
+			username = "dev1"
+			displayName = "Developer One"
+		} else {
+			// Comments from other users
+			userNum := (i % 5) + 1
+			username = fmt.Sprintf("dev%d", userNum)
+			displayName = fmt.Sprintf("Developer %d", userNum)
+		}
+		
+		comments[i] = map[string]interface{}{
+			"id": fmt.Sprintf("0192d4a4-75d4-7f8a-8c7d-2f8b0d4f1a%02d", i),
 			"author": map[string]string{
-				"username":    "dev1",
-				"displayName": "Developer One",
-				"url":         "https://github.com/dev1",
+				"username":    username,
+				"displayName": displayName,
+				"url":         fmt.Sprintf("https://github.com/%s", username),
 			},
-			"createdAt": "2025-01-10 23:15:32",
-			"content":   "I'm working on this issue and should have a fix ready by tomorrow.",
-		},
-		{
-			"id": "0192d4a4-75d4-7f8a-8c7d-2f8b0d4f1a87",
-			"author": map[string]string{
-				"username":    "dev2",
-				"displayName": "Developer Two",
-				"url":         "https://github.com/dev2",
-			},
-			"createdAt": "2025-01-11 09:45:22",
-			"content":   "Thanks for the update. Please make sure to add unit tests for the authentication module.",
-		},
+			"createdAt": fmt.Sprintf("2025-01-%02d %02d:%02d:%02d", (i%28)+1, (i%24), (i%60), (i%60)),
+			"content":   fmt.Sprintf("This is sample comment #%d for the issue. This comment is from %s.", i+1, displayName),
+		}
 	}
 	
 	result := map[string]interface{}{
@@ -41,23 +46,16 @@ func GetGitIssueCommentList(e ui.Event) any {
 
 // GetGitIssueParticipantList returns list of participants for a Git issue
 func GetGitIssueParticipantList(e ui.Event) any {
-	// For simulation, return some sample participants
-	participants := []map[string]interface{}{
-		{
-			"username":    "dev1",
-			"displayName": "Developer One",
-			"url":         "https://github.com/dev1",
-		},
-		{
-			"username":    "dev2",
-			"displayName": "Developer Two",
-			"url":         "https://github.com/dev2",
-		},
-		{
-			"username":    "dev3",
-			"displayName": "Developer Three",
-			"url":         "https://github.com/dev3",
-		},
+	// For simulation, return 20 sample participants
+	participants := make([]map[string]interface{}, 20)
+	
+	for i := 0; i < 20; i++ {
+		userNum := (i % 10) + 1
+		participants[i] = map[string]interface{}{
+			"username":    fmt.Sprintf("dev%d", userNum),
+			"displayName": fmt.Sprintf("Developer %d", userNum),
+			"url":         fmt.Sprintf("https://github.com/dev%d", userNum),
+		}
 	}
 	
 	result := map[string]interface{}{
