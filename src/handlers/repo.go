@@ -7,34 +7,23 @@ import (
 
 // GetGitRepoIssueList returns list of issues for a Git repository
 func GetGitRepoIssueList(e ui.Event) any {
-	// For simulation, return some sample issues
-	issues := []map[string]interface{}{
-		{
-			"id":    "0192d4a4-75d4-7f8a-8c7d-2f8b0d4f1a84",
-			"title": "Implement user authentication",
-			"code":  "1",
-			"url":   "https://github.com/example/repo/issues/1",
+	// For simulation, return 50 sample issues
+	issues := make([]map[string]interface{}, 50)
+	
+	for i := 0; i < 50; i++ {
+		issues[i] = map[string]interface{}{
+			"id":    fmt.Sprintf("0192d4a4-75d4-7f8a-8c7d-2f8b0d4f1a%02d", i),
+			"title": fmt.Sprintf("Sample Issue #%d", i+1),
+			"code":  fmt.Sprintf("%d", i+1),
+			"url":   fmt.Sprintf("https://github.com/example/repo/issues/%d", i+1),
 			"author": map[string]string{
-				"username":    "dev1",
-				"displayName": "Developer One",
-				"url":         "https://github.com/dev1",
+				"username":    fmt.Sprintf("dev%d", (i%5)+1),
+				"displayName": fmt.Sprintf("Developer %d", (i%5)+1),
+				"url":         fmt.Sprintf("https://github.com/dev%d", (i%5)+1),
 			},
-			"createdAt":   "2025-01-10 23:12:32",
-			"description": "Need to implement secure user authentication for the application",
-		},
-		{
-			"id":    "0192d4a4-75d4-7f8a-8c7d-2f8b0d4f1a85",
-			"title": "Fix database connection issues",
-			"code":  "2",
-			"url":   "https://github.com/example/repo/issues/2",
-			"author": map[string]string{
-				"username":    "dev2",
-				"displayName": "Developer Two",
-				"url":         "https://github.com/dev2",
-			},
-			"createdAt":   "2025-01-11 10:30:45",
-			"description": "Database connections are timing out under heavy load",
-		},
+			"createdAt":   fmt.Sprintf("2025-01-%02d %02d:%02d:%02d", (i%28)+1, (i%24), (i%60), (i%60)),
+			"description": fmt.Sprintf("This is a sample issue #%d for demonstration purposes", i+1),
+		}
 	}
 	
 	result := map[string]interface{}{
