@@ -1,8 +1,47 @@
 // bridge.js - Bridge between UI and Go backend
 
+// Function to get webui instance with proper checking
+async function getWebUI() {
+    // Return a Promise that resolves with the connected webui object
+    return new Promise((resolve, reject) => {
+        function checkWebUI(webui) {
+            if (webui.isConnected()) {
+                // Connection to the backend is established
+                console.log('Connected.');
+                // Resolve with the webui object when connected
+                resolve(webui);
+            } else {
+                // Connection to the backend is lost
+                console.log('Disconnected.');
+                // Reject with an error when disconnected
+                reject(new Error('WebUI connection to backend was lost.'));
+            }
+        }
+
+        if (typeof webui !== 'undefined') {
+            checkWebUI(webui);
+        } else {
+            document.addEventListener('DOMContentLoaded', function() {
+                // DOM is loaded. Check if `webui` object is available
+                if (typeof webui !== 'undefined') {
+                    // Set events callback
+                    webui.setEventCallback((e) => {
+                        checkWebUI(webui);
+                    });
+                } else {
+                    // The virtual file `webui.js` is not included
+                    reject(new Error('Please add webui.js to your HTML.'));
+                }
+            });
+        }
+    });
+}
+
 // Common function to handle Go function calls with parameter serialization and return value deserialization
 async function callGoFunction(functionName, params = null) {
     try {
+        const webui = await getWebUI();
+        
         let result;
         if (params !== null) {
             result = await webui.call(functionName, JSON.stringify(params));

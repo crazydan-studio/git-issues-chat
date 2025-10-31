@@ -20,7 +20,7 @@ function addPlatform() {
     <div class="px-4 py-3 border-b border-gray-200 flex items-center justify-between">
         <h2 class="font-semibold text-gray-800">Platforms</h2>
         <button 
-            on:click={addPlatform}
+            onclick={addPlatform}
             class="p-1 text-gray-500 hover:text-gray-700 rounded-full hover:bg-gray-100"
             aria-label="Add platform"
         >
@@ -40,7 +40,7 @@ function addPlatform() {
                 {#each $gitPlatformList as platform (platform.id)}
                     <li>
                         <button
-                            on:click={() => selectPlatform(platform)}
+                            onclick={() => selectPlatform(platform)}
                             class="w-full px-4 py-3 text-left hover:bg-gray-50 flex items-center space-x-3 {($selectedGitPlatform?.id === platform.id) ? 'bg-blue-50 border-l-4 border-blue-500' : ''}"
                         >
                             <div class="bg-gray-200 border-2 border-dashed rounded-xl w-8 h-8 flex items-center justify-center">

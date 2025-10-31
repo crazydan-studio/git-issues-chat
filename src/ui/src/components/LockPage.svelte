@@ -4,13 +4,15 @@
     import { verifyAppUser } from '../lib/bridge.js';
     import { showNotification } from '../lib/store.js';
 
-    let password = '';
-    let isVerifying = false;
-    let userId = '';
+    let password = $state('');
+    let isVerifying = $state(false);
+    let userId = $state('');
 
-    $: if ($appUser) {
-        userId = $appUser.id;
-    }
+    $effect(() => {
+        if ($appUser) {
+            userId = $appUser.id;
+        }
+    });
 
     async function handleUnlock() {
         if (!password) {
@@ -62,14 +64,14 @@
                             id="password"
                             type="password"
                             bind:value={password}
-                            on:keydown={handleKeyPress}
+                            onkeydown={handleKeyPress}
                             class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                             placeholder="Enter your password to unlock"
                         />
                     </div>
 
                     <button
-                        on:click={handleUnlock}
+                        onclick={handleUnlock}
                         disabled={isVerifying}
                         class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
                     >

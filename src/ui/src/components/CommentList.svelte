@@ -6,8 +6,8 @@ import { showNotification } from '../lib/store.js';
 
 let { class: className }: { class?: ClassValue } = $props();
 
-let newComment = '';
-let isSending = false;
+let newComment = $state('');
+let isSending = $state(false);
 
 async function sendComment() {
     if (!newComment.trim() || !$selectedGitIssue) return;
@@ -71,14 +71,14 @@ function handleKeyPress(event) {
         <div class="relative">
             <textarea
                 bind:value={newComment}
-                on:keydown={handleKeyPress}
+                onkeydown={handleKeyPress}
                 placeholder="Type a comment... (Ctrl+Enter to send)"
                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
                 rows="3"
             ></textarea>
             <div class="absolute bottom-2 right-2">
                 <button
-                    on:click={sendComment}
+                    onclick={sendComment}
                     disabled={!newComment.trim() || isSending}
                     class="px-3 py-1 bg-blue-600 text-white text-sm rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
                 >

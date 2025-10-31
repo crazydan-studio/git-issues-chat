@@ -59,7 +59,7 @@
 
     <div class="relative user-menu">
         <button 
-            on:click={toggleUserMenu}
+            onclick={toggleUserMenu}
             class="flex items-center space-x-2 focus:outline-none"
             aria-label="User menu"
         >
@@ -77,31 +77,31 @@
         {#if showUserMenu}
             <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-200">
                 <button 
-                    on:click={openProfile}
+                    onclick={openProfile}
                     class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 >
                     Profile
                 </button>
                 <button 
-                    on:click={openPassword}
+                    onclick={openPassword}
                     class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 >
                     Change Password
                 </button>
                 <button 
-                    on:click={() => { closeUserMenu(); /* TODO: Implement action log */ }}
+                    onclick={() => { closeUserMenu(); /* TODO: Implement action log */ }}
                     class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 >
                     Action Log
                 </button>
                 <button 
-                    on:click={lockApp}
+                    onclick={lockApp}
                     class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 >
                     Lock App
                 </button>
                 <button 
-                    on:click={logout}
+                    onclick={logout}
                     class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 >
                     Logout

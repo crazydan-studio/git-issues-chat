@@ -20,7 +20,7 @@ function addRepo() {
     <div class="px-4 py-3 border-b border-gray-200 flex items-center justify-between">
         <h2 class="font-semibold text-gray-800">Repositories</h2>
         <button 
-            on:click={addRepo}
+            onclick={addRepo}
             disabled={!$selectedGitPlatform}
             class="p-1 text-gray-500 hover:text-gray-700 rounded-full hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
             aria-label="Add repository"
@@ -45,7 +45,7 @@ function addRepo() {
                 {#each $gitPlatformRepoList as repo (repo.id)}
                     <li>
                         <button
-                            on:click={() => selectRepo(repo)}
+                            onclick={() => selectRepo(repo)}
                             class="w-full px-4 py-3 text-left hover:bg-gray-50 flex items-center space-x-3 {($selectedGitRepo?.id === repo.id) ? 'bg-blue-50 border-l-4 border-blue-500' : ''}"
                         >
                             <div class="bg-gray-200 border-2 border-dashed rounded-xl w-8 h-8 flex items-center justify-center">

@@ -44,7 +44,7 @@
 <div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex flex-col">
     <div class="absolute top-4 right-4">
         <button 
-            on:click={showAbout}
+            onclick={showAbout}
             class="p-2 rounded-full hover:bg-white/20 transition-colors"
             aria-label="About"
         >
@@ -74,14 +74,14 @@
                             id="password"
                             type="password"
                             bind:value={password}
-                            on:keydown={handleKeyPress}
+                            onkeydown={handleKeyPress}
                             class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                             placeholder="Enter your password"
                         />
                     </div>
 
                     <button
-                        on:click={handleLogin}
+                        onclick={handleLogin}
                         disabled={isVerifying}
                         class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
                     >
