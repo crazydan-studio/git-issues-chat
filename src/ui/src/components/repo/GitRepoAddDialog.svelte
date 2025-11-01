@@ -237,5 +237,5 @@
             </div>
         {/snippet}
     </Dialog>
-{/if}// Trigger change
+{/if}
 
