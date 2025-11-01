@@ -1,9 +1,9 @@
 <script>
     import { onMount } from 'svelte';
     import { appUser } from './lib/store.js';
-    import AuthPage from './components/AuthPage.svelte';
-    import ChatPage from './components/ChatPage.svelte';
-    import LockPage from './components/LockPage.svelte';
+    import AppAuthPage from './components/app/AppAuthPage.svelte';
+    import AppMainPage from './components/app/AppMainPage.svelte';
+    import AppLockPage from './components/app/AppLockPage.svelte';
     import Notification from './components/Notification.svelte';
 
     let currentPage = 'auth'; // 'auth', 'chat', 'lock'
@@ -29,11 +29,11 @@
 
 <div class="w-full h-screen">
     {#if currentPage === 'auth'}
-        <AuthPage />
+        <AppAuthPage />
     {:else if currentPage === 'chat'}
-        <ChatPage on:lockApp={handleLockApp} on:logout={handleLogout} />
+        <AppMainPage on:lockApp={handleLockApp} on:logout={handleLogout} />
     {:else if currentPage === 'lock'}
-        <LockPage />
+        <AppLockPage />
     {/if}
     <Notification />
 </div>
