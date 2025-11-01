@@ -1,18 +1,15 @@
 <script lang="ts">
 import type { ClassValue } from 'svelte/elements';
 import { gitPlatformList, selectedGitPlatform, updateSelectedGitPlatform } from '../../lib/store.js';
-import { createEventDispatcher } from 'svelte';
 
-let { class: className }: { class?: ClassValue } = $props();
-
-const dispatch = createEventDispatcher();
+let { class: className, onAddPlatform }: { class?: ClassValue; onAddPlatform: () => void } = $props();
 
 function selectPlatform(platform) {
     updateSelectedGitPlatform(platform);
 }
 
 function addPlatform() {
-    dispatch('addPlatform');
+    onAddPlatform();
 }
 </script>
 

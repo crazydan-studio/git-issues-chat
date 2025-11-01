@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { ClassValue } from 'svelte/elements';
-import { gitIssueCommentList, selectedGitIssue } from '../../lib/store.js';
+import { gitIssueCommentList, selectedGitIssue, appUser } from '../../lib/store.js';
 import { saveGitIssueComment } from '../../lib/bridge.js';
 import { showNotification } from '../../lib/store.js';
 
@@ -8,6 +8,11 @@ let { class: className }: { class?: ClassValue } = $props();
 
 let newComment = $state('');
 let isSending = $state(false);
+let currentUser = $state(null);
+
+$effect(() => {
+    currentUser = $appUser;
+});
 
 async function sendComment() {
     if (!newComment.trim() || !$selectedGitIssue) return;
@@ -49,20 +54,43 @@ function handleKeyPress(event) {
             </div>
         {:else}
             {#each $gitIssueCommentList as comment (comment.id)}
-                <div class="bg-white rounded-lg p-3 shadow-sm">
-                    <div class="flex items-center mb-2">
-                        <div class="bg-gray-200 border-2 border-dashed rounded-xl w-8 h-8 flex items-center justify-center mr-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                            </svg>
-                        </div>
-                        <div>
-                            <p class="text-sm font-medium text-gray-900">{comment.author.displayName}</p>
-                            <p class="text-xs text-gray-500">{comment.createdAt}</p>
+                {#if comment.author.username === currentUser?.username}
+                    <!-- Current user's comment - right aligned -->
+                    <div class="flex justify-end">
+                        <div class="bg-blue-500 text-white rounded-lg p-3 shadow-sm max-w-[80%]">
+                            <div class="flex items-center mb-2 justify-end">
+                                <div>
+                                    <p class="text-sm font-medium">{comment.author.displayName} (You)</p>
+                                    <p class="text-xs opacity-80">{comment.createdAt}</p>
+                                </div>
+                                <div class="bg-gray-200 border-2 border-dashed rounded-xl w-8 h-8 flex items-center justify-center ml-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <p>{comment.content}</p>
                         </div>
                     </div>
-                    <p class="text-gray-700">{comment.content}</p>
-                </div>
+                {:else}
+                    <!-- Other participants' comments - left aligned -->
+                    <div class="flex justify-start">
+                        <div class="bg-white rounded-lg p-3 shadow-sm max-w-[80%]">
+                            <div class="flex items-center mb-2">
+                                <div class="bg-gray-200 border-2 border-dashed rounded-xl w-8 h-8 flex items-center justify-center mr-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-gray-900">{comment.author.displayName}</p>
+                                    <p class="text-xs text-gray-500">{comment.createdAt}</p>
+                                </div>
+                            </div>
+                            <p class="text-gray-700">{comment.content}</p>
+                        </div>
+                    </div>
+                {/if}
             {/each}
         {/if}
     </div>

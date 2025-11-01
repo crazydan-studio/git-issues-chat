@@ -1,18 +1,15 @@
 <script lang="ts">
 import type { ClassValue } from 'svelte/elements';
 import { gitIssueList, selectedGitRepo, selectedGitIssue, updateSelectedGitIssue } from '../../lib/store.js';
-import { createEventDispatcher } from 'svelte';
 
-let { class: className }: { class?: ClassValue } = $props();
-
-const dispatch = createEventDispatcher();
+let { class: className, onAddIssue }: { class?: ClassValue; onAddIssue: () => void } = $props();
 
 function selectIssue(issue) {
     updateSelectedGitIssue(issue);
 }
 
 function addIssue() {
-    dispatch('addIssue');
+    onAddIssue();
 }
 </script>
 

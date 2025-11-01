@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { onMount } from 'svelte';
     import { appUser, showAboutDialog, showNotification } from '../../lib/store.js';
     import { verifyAppUser } from '../../lib/bridge.js';
     import AppAboutDialog from './AppAboutDialog.svelte';

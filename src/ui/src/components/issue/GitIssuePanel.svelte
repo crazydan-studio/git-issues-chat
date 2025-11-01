@@ -50,7 +50,7 @@ function openAddIssue() {
 </script>
 
 <div class={['flex h-full', className]}>
-    <GitIssueList on:addIssue={openAddIssue} class="w-1/5" />
+    <GitIssueList onAddIssue={openAddIssue} class="w-1/5" />
     <div class="flex-1 flex">
         <GitIssueCommentPanel />
     </div>

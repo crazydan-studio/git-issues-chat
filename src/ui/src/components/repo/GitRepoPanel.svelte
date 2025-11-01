@@ -43,10 +43,10 @@ function openAddRepo() {
 
 <div class={['flex flex-col h-full border-r border-gray-200', className]}>
     <div class="h-1/3 overflow-hidden">
-        <GitPlatformList on:addPlatform={openAddPlatform} />
+        <GitPlatformList onAddPlatform={openAddPlatform} />
     </div>
     <div class="flex-1 overflow-hidden">
-        <GitRepoList on:addRepo={openAddRepo} />
+        <GitRepoList onAddRepo={openAddRepo} />
     </div>
     
     <GitPlatformAddDialog />
