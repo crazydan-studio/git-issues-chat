@@ -1,29 +1,35 @@
 <script>
-    import { onMount } from 'svelte';
-    import { appUser } from './lib/store.js';
+    import { appUser, clearAllStates } from './lib/store.js';
     import AppAuthPage from './components/app/AppAuthPage.svelte';
     import AppMainPage from './components/app/AppMainPage.svelte';
-    import AppLockPage from './components/app/AppLockPage.svelte';
+    import AppLockDialog from './components/app/AppLockDialog.svelte';
     import Notification from './components/Notification.svelte';
 
-    let currentPage = 'auth'; // 'auth', 'chat', 'lock'
+    let currentPage = $state('auth'); // 'auth' or 'chat'
+    let showLockDialog = $state(false);
 
-    $: {
+    $effect(() => {
         if ($appUser) {
-            currentPage = currentPage === 'lock' ? 'lock' : 'chat';
+            currentPage = 'chat';
         } else {
             currentPage = 'auth';
         }
-    }
+    });
 
     // Function to handle lock app event
     function handleLockApp() {
-        currentPage = 'lock';
+        showLockDialog = true;
     }
 
     // Function to handle logout event
     function handleLogout() {
+        // Clear all application state data before logging out
+        clearAllStates();
         currentPage = 'auth';
+    }
+
+    function closeLockDialog() {
+        showLockDialog = false;
     }
 </script>
 
@@ -31,9 +37,10 @@
     {#if currentPage === 'auth'}
         <AppAuthPage />
     {:else if currentPage === 'chat'}
-        <AppMainPage on:lockApp={handleLockApp} on:logout={handleLogout} />
-    {:else if currentPage === 'lock'}
-        <AppLockPage />
+        <AppMainPage onLockApp={handleLockApp} onLogout={handleLogout} />
+    {/if}
+    {#if showLockDialog}
+        <AppLockDialog onClose={closeLockDialog} />
     {/if}
     <Notification />
 </div>
