@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { ClassValue } from 'svelte/elements';
-import { gitPlatformRepoList, selectedGitPlatform, selectedGitRepo, updateSelectedGitRepo } from '../../lib/store.js';
+import { gitRepoList, selectedGitPlatform, selectedGitRepo, updateSelectedGitRepo } from '../../lib/store.js';
 import { createEventDispatcher } from 'svelte';
 
 let { class: className }: { class?: ClassValue } = $props();
@@ -36,13 +36,13 @@ function addRepo() {
             <div class="p-4 text-center text-gray-500">
                 Select a platform first
             </div>
-        {:else if $gitPlatformRepoList.length === 0}
+        {:else if $gitRepoList.length === 0}
             <div class="p-4 text-center text-gray-500">
                 No repositories added yet
             </div>
         {:else}
             <ul class="divide-y divide-gray-200">
-                {#each $gitPlatformRepoList as repo (repo.id)}
+                {#each $gitRepoList as repo (repo.id)}
                     <li>
                         <button
                             onclick={() => selectRepo(repo)}

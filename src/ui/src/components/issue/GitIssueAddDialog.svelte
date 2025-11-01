@@ -1,6 +1,6 @@
 <script lang="ts">
     import { showAddIssueDialog } from '../../lib/store.js';
-    import { saveGitRepoIssue } from '../../lib/bridge.js';
+    import { saveGitIssue } from '../../lib/bridge.js';
     import { showNotification } from '../../lib/store.js';
     import Dialog from '../../lib/components/Dialog.svelte';
 
@@ -23,7 +23,7 @@
 
         isSaving = true;
         try {
-            const result = await saveGitRepoIssue({
+            const result = await saveGitIssue({
                 title,
                 content
             });

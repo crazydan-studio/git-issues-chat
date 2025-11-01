@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { ClassValue } from 'svelte/elements';
-import { gitRepoIssueList, selectedGitRepo, selectedGitIssue, gitIssueCommentList, gitIssueParticipantList, showAddIssueDialog } from '../../lib/store.js';
-import { getGitRepoIssueList, getGitIssueCommentList, getGitIssueParticipantList } from '../../lib/bridge.js';
+import { gitIssueList, selectedGitRepo, selectedGitIssue, gitIssueCommentList, gitIssueParticipantList, showAddIssueDialog } from '../../lib/store.js';
+import { getGitIssueList, getGitIssueCommentList, getGitIssueParticipantList } from '../../lib/bridge.js';
 import GitIssueList from './GitIssueList.svelte';
 import GitIssueCommentPanel from './GitIssueCommentPanel.svelte';
 import GitIssueAddDialog from './GitIssueAddDialog.svelte';
@@ -24,9 +24,9 @@ $effect(() => {
 });
 
 async function loadIssueList(repoId) {
-    const result = await getGitRepoIssueList({ repoId });
+    const result = await getGitIssueList({ repoId });
     if (result.success) {
-        gitRepoIssueList.set(result.data);
+        gitIssueList.set(result.data);
     }
 }
 

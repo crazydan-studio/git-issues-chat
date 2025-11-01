@@ -87,28 +87,28 @@ export async function saveGitPlatform(params) {
     return result;
 }
 
-export async function getGitPlatformRepoList(params) {
-    const result = await callGoFunction('getGitPlatformRepoList', params);
+export async function getGitRepoList(params) {
+    const result = await callGoFunction('getGitRepoList', params);
     return result;
 }
 
-export async function getGitPlatformRepoInfo(params) {
-    const result = await callGoFunction('getGitPlatformRepoInfo', params);
+export async function getGitRepoInfo(params) {
+    const result = await callGoFunction('getGitRepoInfo', params);
     return result;
 }
 
-export async function saveGitPlatformRepo(params) {
-    const result = await callGoFunction('saveGitPlatformRepo', params);
+export async function saveGitRepo(params) {
+    const result = await callGoFunction('saveGitRepo', params);
     return result;
 }
 
-export async function getGitRepoIssueList(params) {
-    const result = await callGoFunction('getGitRepoIssueList', params);
+export async function getGitIssueList(params) {
+    const result = await callGoFunction('getGitIssueList', params);
     return result;
 }
 
-export async function saveGitRepoIssue(params) {
-    const result = await callGoFunction('saveGitRepoIssue', params);
+export async function saveGitIssue(params) {
+    const result = await callGoFunction('saveGitIssue', params);
     return result;
 }
 

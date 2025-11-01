@@ -75,13 +75,13 @@ func main() {
 	// Platform handlers
 	w.Bind("getGitPlatformList", handlers.GetGitPlatformList)
 	w.Bind("saveGitPlatform", handlers.SaveGitPlatform)
-	w.Bind("getGitPlatformRepoList", handlers.GetGitPlatformRepoList)
-	w.Bind("getGitPlatformRepoInfo", handlers.GetGitPlatformRepoInfo)
-	w.Bind("saveGitPlatformRepo", handlers.SaveGitPlatformRepo)
+	w.Bind("getGitRepoList", handlers.GetGitRepoList)
+	w.Bind("getGitRepoInfo", handlers.GetGitRepoInfo)
+	w.Bind("saveGitRepo", handlers.SaveGitRepo)
 
 	// Repo handlers
-	w.Bind("getGitRepoIssueList", handlers.GetGitRepoIssueList)
-	w.Bind("saveGitRepoIssue", handlers.SaveGitRepoIssue)
+	w.Bind("getGitIssueList", handlers.GetGitIssueList)
+	w.Bind("saveGitIssue", handlers.SaveGitIssue)
 
 	// Issue handlers
 	w.Bind("getGitIssueCommentList", handlers.GetGitIssueCommentList)

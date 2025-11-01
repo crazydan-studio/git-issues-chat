@@ -1,6 +1,6 @@
 <script lang="ts">
     import { showAddRepoDialog } from '../../lib/store.js';
-    import { getGitPlatformRepoInfo, saveGitPlatformRepo } from '../../lib/bridge.js';
+    import { getGitRepoInfo, saveGitRepo } from '../../lib/bridge.js';
     import { showNotification } from '../../lib/store.js';
     import Dialog from '../../lib/components/Dialog.svelte';
 
@@ -49,7 +49,7 @@
 
         isFetching = true;
         try {
-            const result = await getGitPlatformRepoInfo({
+            const result = await getGitRepoInfo({
                 platformId: platformUrl, // In a real app, this would be the actual platform ID
                 repoName
             });
@@ -80,7 +80,7 @@
 
         isSaving = true;
         try {
-            const result = await saveGitPlatformRepo({
+            const result = await saveGitRepo({
                 platform: platformUrl, // In a real app, this would be the actual platform ID
                 name: repoName,
                 url: repoInfo.url,

@@ -1,8 +1,8 @@
 <script lang="ts">
 import { onMount } from 'svelte';
 import type { ClassValue } from 'svelte/elements';
-import { gitPlatformList, selectedGitPlatform, gitPlatformRepoList, selectedGitRepo, showAddPlatformDialog, showAddRepoDialog } from '../../lib/store.js';
-import { getGitPlatformList, getGitPlatformRepoList } from '../../lib/bridge.js';
+import { gitPlatformList, selectedGitPlatform, gitRepoList, selectedGitRepo, showAddPlatformDialog, showAddRepoDialog } from '../../lib/store.js';
+import { getGitPlatformList, getGitRepoList } from '../../lib/bridge.js';
 import GitPlatformList from './GitPlatformList.svelte';
 import GitRepoList from './GitRepoList.svelte';
 import GitPlatformAddDialog from './GitPlatformAddDialog.svelte';
@@ -26,9 +26,9 @@ $effect(() => {
 });
 
 async function loadRepoList(platformId) {
-    const result = await getGitPlatformRepoList({ platformId });
+    const result = await getGitRepoList({ platformId });
     if (result.success) {
-        gitPlatformRepoList.set(result.data);
+        gitRepoList.set(result.data);
     }
 }
 

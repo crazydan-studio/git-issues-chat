@@ -9,11 +9,11 @@ export const gitPlatformList = writable([]);
 export const selectedGitPlatform = writable(null);
 
 // Git repository states
-export const gitPlatformRepoList = writable([]);
+export const gitRepoList = writable([]);
 export const selectedGitRepo = writable(null);
 
 // Git issue states
-export const gitRepoIssueList = writable([]);
+export const gitIssueList = writable([]);
 export const selectedGitIssue = writable(null);
 
 // Git comment states
@@ -42,16 +42,16 @@ export const updateSelectedGitPlatform = (platform) => {
     selectedGitPlatform.set(platform);
 };
 
-export const updateGitPlatformRepoList = (repos) => {
-    gitPlatformRepoList.set(repos);
+export const updateGitRepoList = (repos) => {
+    gitRepoList.set(repos);
 };
 
 export const updateSelectedGitRepo = (repo) => {
     selectedGitRepo.set(repo);
 };
 
-export const updateGitRepoIssueList = (issues) => {
-    gitRepoIssueList.set(issues);
+export const updateGitIssueList = (issues) => {
+    gitIssueList.set(issues);
 };
 
 export const updateSelectedGitIssue = (issue) => {
@@ -78,9 +78,9 @@ export const clearAllStates = () => {
     appUser.set(null);
     gitPlatformList.set([]);
     selectedGitPlatform.set(null);
-    gitPlatformRepoList.set([]);
+    gitRepoList.set([]);
     selectedGitRepo.set(null);
-    gitRepoIssueList.set([]);
+    gitIssueList.set([]);
     selectedGitIssue.set(null);
     gitIssueCommentList.set([]);
     gitIssueParticipantList.set([]);

@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { ClassValue } from 'svelte/elements';
-import { gitRepoIssueList, selectedGitRepo, selectedGitIssue, updateSelectedGitIssue } from '../../lib/store.js';
+import { gitIssueList, selectedGitRepo, selectedGitIssue, updateSelectedGitIssue } from '../../lib/store.js';
 import { createEventDispatcher } from 'svelte';
 
 let { class: className }: { class?: ClassValue } = $props();
@@ -36,13 +36,13 @@ function addIssue() {
             <div class="p-4 text-center text-gray-500">
                 Select a repository first
             </div>
-        {:else if $gitRepoIssueList.length === 0}
+        {:else if $gitIssueList.length === 0}
             <div class="p-4 text-center text-gray-500">
                 No issues found
             </div>
         {:else}
             <ul class="divide-y divide-gray-200">
-                {#each $gitRepoIssueList as issue (issue.id)}
+                {#each $gitIssueList as issue (issue.id)}
                     <li>
                         <button
                             onclick={() => selectIssue(issue)}
