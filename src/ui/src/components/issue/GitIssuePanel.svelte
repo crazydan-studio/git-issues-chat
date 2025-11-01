@@ -4,6 +4,7 @@ import { gitRepoIssueList, selectedGitRepo, selectedGitIssue, gitIssueCommentLis
 import { getGitRepoIssueList, getGitIssueCommentList, getGitIssueParticipantList } from '../../lib/bridge.js';
 import GitIssueList from './GitIssueList.svelte';
 import GitIssueCommentPanel from './GitIssueCommentPanel.svelte';
+import GitIssueAddDialog from './GitIssueAddDialog.svelte';
 
 let { class: className }: { class?: ClassValue } = $props();
 
@@ -53,4 +54,6 @@ function openAddIssue() {
     <div class="flex-1 flex">
         <GitIssueCommentPanel />
     </div>
+    
+    <GitIssueAddDialog />
 </div>

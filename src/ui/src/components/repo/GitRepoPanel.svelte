@@ -5,6 +5,8 @@ import { gitPlatformList, selectedGitPlatform, gitPlatformRepoList, selectedGitR
 import { getGitPlatformList, getGitPlatformRepoList } from '../../lib/bridge.js';
 import GitPlatformList from './GitPlatformList.svelte';
 import GitRepoList from './GitRepoList.svelte';
+import GitPlatformAddDialog from './GitPlatformAddDialog.svelte';
+import GitRepoAddDialog from './GitRepoAddDialog.svelte';
 
 let { class: className }: { class?: ClassValue } = $props();
 
@@ -46,4 +48,7 @@ function openAddRepo() {
     <div class="flex-1 overflow-hidden">
         <GitRepoList on:addRepo={openAddRepo} />
     </div>
+    
+    <GitPlatformAddDialog />
+    <GitRepoAddDialog />
 </div>
