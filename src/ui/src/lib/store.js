@@ -20,6 +20,9 @@ export const selectedGitIssue = writable(null);
 export const gitIssueCommentList = writable([]);
 export const gitIssueParticipantList = writable([]);
 
+// Action log states
+export const appUserActionLogList = writable([]);
+
 // UI states
 export const showAboutDialog = writable(false);
 export const showUserProfileDialog = writable(false);
@@ -64,6 +67,10 @@ export const updateGitIssueCommentList = (comments) => {
 
 export const updateGitIssueParticipantList = (participants) => {
     gitIssueParticipantList.set(participants);
+};
+
+export const updateAppUserActionLogList = (logs) => {
+    appUserActionLogList.set(logs);
 };
 
 export const showNotification = (type, message) => {

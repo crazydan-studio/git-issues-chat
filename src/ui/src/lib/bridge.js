@@ -126,3 +126,8 @@ export async function saveGitIssueComment(params) {
     const result = await callGoFunction('saveGitIssueComment', params);
     return result;
 }
+
+export async function getAppUserActionLogList(params) {
+    const result = await callGoFunction('getAppUserActionLogList', params);
+    return result;
+}

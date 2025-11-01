@@ -71,6 +71,7 @@ func main() {
 	w.Bind("verifyAppUser", handlers.VerifyAppUser)
 	w.Bind("saveAppUserInfo", handlers.SaveAppUserInfo)
 	w.Bind("updateAppUserPassword", handlers.UpdateAppUserPassword)
+	w.Bind("getAppUserActionLogList", handlers.GetAppUserActionLogList)
 
 	// Platform handlers
 	w.Bind("getGitPlatformList", handlers.GetGitPlatformList)

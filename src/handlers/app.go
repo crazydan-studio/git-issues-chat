@@ -44,7 +44,7 @@ func VerifyAppUser(e ui.Event) any {
 	if (userId == "" && password != "") || (userId != "" && password != "") {
 		user := map[string]interface{}{
 			"id":          "0192d4a4-75d4-7f8a-8c7d-2f8b0d4f1a7f",
-			"username":    "user",
+			"username":    "dev1",
 			"displayName": "Git User",
 			"avatar":      "avatar-hash-123",
 		}
@@ -106,5 +106,52 @@ func UpdateAppUserPassword(e ui.Event) any {
 		"success": true,
 	}
 	
+	return result
+}
+
+// GetAppUserActionLogList gets user action log list
+func GetAppUserActionLogList(e ui.Event) any {
+	// Parse input parameters
+	params, err := ui.GetArg[map[string]interface{}](e)
+	if err != nil {
+		result := map[string]interface{}{
+			"success": false,
+			"msg":     "Invalid parameters",
+		}
+		return result
+	}
+
+	userId, _ := params["userId"].(string)
+	if userId == "" {
+		result := map[string]interface{}{
+			"success": false,
+			"msg":     "User ID is required",
+		}
+		return result
+	}
+
+	// For simulation, return 20 sample action logs
+	logs := make([]map[string]interface{}, 20)
+
+	for i := 0; i < 20; i++ {
+		// Alternate between success and error status
+		status := "success"
+		if i%3 == 0 {
+			status = "error"
+		}
+
+		logs[i] = map[string]interface{}{
+			"id":        fmt.Sprintf("0192d4a4-75d4-7f8a-8c7d-2f8b0d4f1a%02d", 20-i),
+			"status":    status,
+			"createdAt": fmt.Sprintf("2025-01-%02d %02d:%02d:%02d", (i%28)+1, (i%24), (i%60), (i%60)),
+			"content":   fmt.Sprintf("Sample action log entry #%d for demonstration purposes", 20-i),
+		}
+	}
+
+	result := map[string]interface{}{
+		"success": true,
+		"data":    logs,
+	}
+
 	return result
 }
