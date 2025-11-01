@@ -1,10 +1,9 @@
 <script lang="ts">
     import { appUser, showUserProfileDialog, showUserPasswordDialog } from '../../lib/store.js';
-    import { createEventDispatcher } from 'svelte';
 
-    const dispatch = createEventDispatcher();
+    let { onLockApp, onLogout, onShowActionLog }: { onLockApp: () => void; onLogout: () => void; onShowActionLog: () => void } = $props();
 
-    let showUserMenu = false;
+    let showUserMenu = $state(false);
 
     function toggleUserMenu() {
         showUserMenu = !showUserMenu;
@@ -24,14 +23,19 @@
         closeUserMenu();
     }
 
-    function lockApp() {
-        dispatch('lockApp');
+    function openActionLog() {
+        onShowActionLog();
         closeUserMenu();
     }
 
-    function logout() {
-        dispatch('logout');
+    function lockAppAndCloseMenu() {
         closeUserMenu();
+        onLockApp();
+    }
+
+    function logoutAndCloseMenu() {
+        closeUserMenu();
+        onLogout();
     }
 
     // Close menu when clicking outside
@@ -89,19 +93,19 @@
                     Change Password
                 </button>
                 <button 
-                    onclick={() => { closeUserMenu(); /* TODO: Implement action log */ }}
+                    onclick={openActionLog}
                     class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 >
                     Action Log
                 </button>
                 <button 
-                    onclick={lockApp}
+                    onclick={lockAppAndCloseMenu}
                     class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 >
                     Lock App
                 </button>
                 <button 
-                    onclick={logout}
+                    onclick={logoutAndCloseMenu}
                     class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 >
                     Logout
