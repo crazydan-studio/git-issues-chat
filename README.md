@@ -14,6 +14,9 @@ Git Issues Chat provides a familiar chat interface for GitHub collaboration, mak
 - **Offline Capability**: Local SQLite database for offline access
 - **Real-time Updates**: Automatic synchronization with GitHub
 - **Cross-Platform**: Runs on Linux, Windows, and macOS
+- **User Management**: Authentication, profile management, and password changes
+- **Action Logging**: Track user activities and actions
+- **App Locking**: Secure application with password protection
 
 ## Project Structure
 
@@ -31,6 +34,7 @@ git-issues-chat/
 ├── docs/           # Documentation
 │   └── stages/     # Stage development documentation
 ├── src/            # Source code
+│   ├── handlers/   # Backend handler functions
 │   ├── main.go     # Application entry point
 │   └── ui/         # Svelte UI project
 └── VERSION         # Application version
@@ -111,6 +115,25 @@ Run with parameters:
 ```bash
 ./dist/bin/chat --data-path=./dist/data --ui-path=./dist/ui --browser=firefox
 ```
+
+## Application Components
+
+### Backend (Golang)
+- **Handlers**: Modular handler functions for different application features
+  - `app.go`: Application-level functions (user management, info, etc.)
+  - `platform.go`: Git platform management
+  - `repo.go`: Repository management
+  - `issue.go`: Issue and comment management
+
+### Frontend (Svelte + Tailwind CSS)
+- **Component Organization**:
+  - `app/`: Application-level components (authentication, main layout, dialogs)
+  - `chat/`: Chat panel components
+  - `issue/`: Issue-related components (lists, panels, comments)
+  - `repo/`: Repository-related components (platforms, repositories)
+  - `user/`: User-related components (profile, password management)
+- **State Management**: Svelte stores for application state
+- **Bridge Layer**: JavaScript functions for communicating with backend
 
 ## Versioning
 

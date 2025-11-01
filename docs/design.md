@@ -46,6 +46,7 @@ git-issues-chat/
 ├── docs/           # Documentation
 │   └── stages/     # Stage development documentation
 ├── src/            # Source code
+│   ├── handlers/   # Backend handler functions
 │   ├── main.go     # Application entry point
 │   └── ui/         # Svelte UI project
 └── VERSION         # Application version
@@ -64,10 +65,12 @@ git-issues-chat/
 - Repository listing and selection
 - Issue and comment data retrieval
 
-### Phase 2: Chat Interface Implementation
-- Chat-style UI for issues and comments
-- Real-time message updates
-- Message composition and sending
+### Phase 2: Chat Interface Implementation (Completed)
+- Complete chat-style UI for issues and comments
+- Platform, repository, and issue management
+- User authentication and profile management
+- Action logging and app locking features
+- Real-time message updates and composition
 
 ### Phase 3: Advanced Features
 - Offline support with SQLite caching
@@ -113,3 +116,25 @@ Due to Tailwind CSS v4's content-based purging, predefined font size classes may
 
 ### Data Directory Management
 The application no longer automatically creates the data directory. This responsibility has been moved to the runtime script, which automatically creates the data directory if it doesn't exist, providing better separation of concerns.
+
+### Component Architecture
+The frontend components are organized by functionality:
+- `app/`: Application-level components (authentication, main layout, dialogs)
+- `chat/`: Chat panel components
+- `issue/`: Issue-related components (lists, panels, comments)
+- `repo/`: Repository-related components (platforms, repositories)
+- `user/`: User-related components (profile, password management)
+
+### State Management
+Application state is managed through Svelte stores with clear separation of concerns:
+- Application state (user info, selected items)
+- UI state (dialog visibility, notifications)
+- Data lists (platforms, repositories, issues, comments, participants)
+- Action logs
+
+### Bridge Layer
+Communication between frontend and backend is handled through a JavaScript bridge layer that:
+- Provides generic function calling mechanism for Go handlers
+- Handles parameter serialization and return value deserialization
+- Implements error handling and notification display
+- Exposes specific wrapper functions for all backend handlers

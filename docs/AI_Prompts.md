@@ -30,6 +30,7 @@ git-issues-chat/
 ├── docs/           # 文档
 │   └── stages/     # 阶段开发文档
 ├── src/            # 源代码
+│   ├── handlers/   # 后端处理函数
 │   ├── main.go     # 应用入口点
 │   └── ui/         # Svelte UI 项目
 └── VERSION         # 应用版本
@@ -174,6 +175,130 @@ git-issues-chat/
 - 文档更新
 - 错误处理改进
 
+## 第二阶段：聊天界面实现（阶段 2）
+
+### 任务 1：实现后端处理函数
+
+在 `src/handlers/` 目录中创建以下处理函数：
+
+1. **应用处理函数** (`app.go`)：
+   - `getAppInfo`: 返回应用信息
+   - `verifyAppUser`: 用户认证
+   - `saveAppUserInfo`: 更新用户资料
+   - `updateAppUserPassword`: 更改用户密码
+   - `getAppUserActionLogList`: 获取用户操作日志
+
+2. **平台处理函数** (`platform.go`)：
+   - `getGitPlatformList`: 返回 Git 平台列表
+   - `saveGitPlatform`: 添加/更新 Git 平台配置
+
+3. **仓库处理函数** (`repo.go`)：
+   - `getGitRepoList`: 返回平台的仓库列表
+   - `getGitRepoInfo`: 返回仓库详细信息
+   - `saveGitRepo`: 添加/更新仓库配置
+
+4. **问题处理函数** (`issue.go`)：
+   - `getGitIssueList`: 返回仓库的问题列表
+   - `getGitIssueCommentList`: 返回问题的评论列表
+   - `getGitIssueParticipantList`: 返回问题的参与者列表
+   - `saveGitIssueComment`: 添加新评论到问题
+
+### 任务 2：实现前端组件
+
+在 `src/ui/src/components/` 目录中创建以下组件，并按功能组织：
+
+1. **应用组件** (`app/`)：
+   - `AppAuthPage.svelte`: 认证页面，包含登录表单
+   - `AppMainPage.svelte`: 主应用布局
+   - `AppMainPageHeader.svelte`: 应用头部，包含用户菜单
+   - `AppMainPageFooter.svelte`: 应用底部
+   - `AppLockDialog.svelte`: 应用锁定模态对话框
+   - `AppUserActionLogPanel.svelte`: 用户操作日志面板
+
+2. **仓库组件** (`repo/`)：
+   - `GitPlatformList.svelte`: Git 平台列表
+   - `GitPlatformAddDialog.svelte`: 添加 Git 平台对话框
+   - `GitRepoList.svelte`: 仓库列表
+   - `GitRepoAddDialog.svelte`: 两步添加仓库对话框
+   - `GitRepoPanel.svelte`: 仓库面板，包含平台和仓库列表
+
+3. **问题组件** (`issue/`)：
+   - `GitIssueList.svelte`: 问题列表
+   - `GitIssueAddDialog.svelte`: 添加问题对话框
+   - `GitIssuePanel.svelte`: 问题面板
+   - `GitIssueCommentList.svelte`: 评论列表
+   - `GitIssueCommentPanel.svelte`: 评论面板
+   - `GitIssueParticipantList.svelte`: 参与者列表
+
+4. **用户组件** (`user/`)：
+   - `UserProfileDialog.svelte`: 用户资料对话框
+   - `UserPasswordDialog.svelte`: 用户密码对话框
+
+5. **工具组件** (`lib/components/`)：
+   - `Dialog.svelte`: 可复用的基础对话框组件
+   - `Notification.svelte`: 通知显示组件
+
+### 任务 3：实现状态管理
+
+在 `src/ui/src/lib/store.js` 中实现：
+
+1. 应用状态（用户信息、选中项）
+2. UI 状态（对话框可见性、通知）
+3. 数据列表（平台、仓库、问题、评论、参与者）
+4. 操作日志
+5. 状态更新辅助函数
+
+### 任务 4：实现桥接层
+
+在 `src/ui/src/lib/bridge.js` 中实现：
+
+1. 通用函数调用机制用于 Go 处理函数
+2. 参数序列化和返回值反序列化
+3. 错误处理和通知显示
+4. 所有后端处理函数的特定包装函数
+
+### 任务 5：UI/UX 改进
+
+1. 使用 Tailwind CSS 实现响应式布局：
+   - 固定比例宽度（仓库面板 1/6，问题面板 5/6）
+   - 组件间的视觉分隔线
+   - 当前用户评论右侧显示
+
+2. 增强用户体验：
+   - 操作日志面板用于跟踪用户活动
+   - 模态对话框替代独立页面
+   - 键盘支持（Esc 关闭对话框）
+   - 加载状态和错误处理
+
+### 任务 6：代码现代化
+
+1. 将所有 Svelte 组件转换为 TypeScript 并使用 Svelte 5 runes：
+   - 使用 `$props()` 处理组件属性
+   - 使用 `$state()` 处理响应式状态
+   - 使用 `$effect()` 处理副作用
+
+2. 更新回调命名约定为 `onFunction` 格式
+
+3. 用 `$props` 回调替换已弃用的 `createEventDispatcher`
+
+### 任务 7：组件重构
+
+1. 按功能重新组织前端组件：
+   - `app/`: 应用级组件
+   - `chat/`: 聊天面板组件
+   - `issue/`: 问题相关组件
+   - `repo/`: 仓库相关组件
+   - `user/`: 用户相关组件
+
+2. 更新导入路径以反映新结构
+
+### 任务 8：Bug 修复
+
+1. 修复 `AppMainPageHeader.svelte` 中未定义的登出函数
+2. 解决对话框背景样式问题
+3. 修正组件属性处理
+4. 修复后端函数命名不一致问题
+
 ## 技术要求和约束
 
 ### Tailwind CSS 字体大小处理
@@ -195,6 +320,31 @@ git-issues-chat/
 ### 路径管理
 
 所有脚本都应使用相对于其自身位置的路径，以获得更好的可移植性，而不是绝对路径或复杂的路径解析逻辑。
+
+### 组件架构
+
+前端组件应按功能组织：
+- `app/`: 应用级组件（认证、主布局、对话框）
+- `chat/`: 聊天面板组件
+- `issue/`: 问题相关组件（列表、面板、评论）
+- `repo/`: 仓库相关组件（平台、仓库）
+- `user/`: 用户相关组件（资料、密码管理）
+
+### 状态管理
+
+应用状态应通过 Svelte stores 管理，明确分离关注点：
+- 应用状态（用户信息、选中项）
+- UI 状态（对话框可见性、通知）
+- 数据列表（平台、仓库、问题、评论、参与者）
+- 操作日志
+
+### 桥接层
+
+前后端通信应通过 JavaScript 桥接层处理：
+- 为 Go 处理函数提供通用函数调用机制
+- 处理参数序列化和返回值反序列化
+- 实现错误处理和通知显示
+- 为所有后端处理函数暴露特定包装函数
 
 ## 质量保证
 
