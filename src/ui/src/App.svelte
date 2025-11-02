@@ -1,5 +1,5 @@
 <script>
-    import { appUser, clearAllStates } from './lib/store.js';
+    import { appUser, clearAllStates } from './lib/store';
     import AppAuthPage from './components/app/AppAuthPage.svelte';
     import AppMainPage from './components/app/AppMainPage.svelte';
     import AppLockDialog from './components/app/AppLockDialog.svelte';

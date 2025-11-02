@@ -66,7 +66,9 @@
         
         <!-- Body -->
         <div class="p-6">
-            {@render children()}
+            {#if children}
+                {@render children()}
+            {/if}
         </div>
         
         <!-- Footer -->
