@@ -2,6 +2,7 @@
     import type { ClassValue } from 'svelte/elements';
     import { appUserActionLogList, appUser } from '../../lib/store.js';
     import { getAppUserActionLogList } from '../../lib/bridge.js';
+    import { formatEpocMillis } from '../../lib/utils.ts';
 
     let { class: className, onBack }: { class?: ClassValue; onBack: () => void } = $props();
     let loading = $state(true);
@@ -57,7 +58,7 @@
                         <div class="flex justify-between items-start">
                             <div class="flex-1">
                                 <p class="text-gray-800">{log.content}</p>
-                                <p class="text-xs text-gray-500 mt-1">{log.createdAt}</p>
+                                <p class="text-xs text-gray-500 mt-1">{formatEpocMillis(log.createdAt, 'yyyy-MM-dd HH:mm:ss')}</p>
                             </div>
                             <span class={`px-2 py-1 rounded-full text-xs font-medium ${
                                 log.status === 'success' 
