@@ -3,15 +3,9 @@
     import { showAboutDialog } from '../../lib/store.js';
     import { getAppInfo } from '../../lib/bridge.js';
     import Dialog from '../../lib/components/Dialog.svelte';
+    import type { App } from '../../lib/types.js';
 
-    interface AppInfo {
-        name: string;
-        version: string;
-        author: string;
-        source: string;
-        license: { name: string; url: string };
-        description: string;
-    }
+    interface AppInfo extends App {}
 
     let appInfo: AppInfo = $state({
         name: 'Git Issues Chat',
