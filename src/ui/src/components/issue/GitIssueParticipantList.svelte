@@ -17,7 +17,7 @@ let { class: className }: { class?: ClassValue } = $props();
             </div>
         {:else}
             <ul class="divide-y divide-gray-200">
-                {#each $gitIssueParticipantList as participant (participant.username)}
+                {#each $gitIssueParticipantList as participant (participant.id)}
                     <li>
                         <div class="block px-4 py-3 hover:bg-gray-50 flex items-center space-x-3">
                             <div class="bg-gray-200 border-2 border-dashed rounded-xl w-8 h-8 flex items-center justify-center">
