@@ -2,6 +2,7 @@
     import { gitIssueCommentList, gitIssueParticipantList, selectedGitIssue } from '../../lib/store.js';
     import GitIssueCommentList from './GitIssueCommentList.svelte';
     import GitIssueParticipantList from './GitIssueParticipantList.svelte';
+    import { formatEpocMillis } from '../../lib/utils.ts';
 </script>
 
 <div class="flex flex-col flex-1">
@@ -15,7 +16,7 @@
             <div class="flex items-center mt-1 text-sm text-gray-600">
                 <a href={$selectedGitIssue.url} target="_blank" class="text-blue-600 hover:underline">#{ $selectedGitIssue.code }</a>
                 <span class="mx-2">•</span>
-                <span>{ $selectedGitIssue.createdAt }</span>
+                <span>{ formatEpocMillis($selectedGitIssue.createdAt, 'yyyy-MM-dd') }</span>
                 <span class="mx-2">•</span>
                 <div class="flex items-center">
                     <div class="bg-gray-200 border-2 border-dashed rounded-xl w-5 h-5 flex items-center justify-center mr-1">
@@ -23,7 +24,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                         </svg>
                     </div>
-                    <span>{ $selectedGitIssue.author.displayName }</span>
+                    <span>{ $selectedGitIssue.createdBy.displayName }</span>
                 </div>
             </div>
         </div>

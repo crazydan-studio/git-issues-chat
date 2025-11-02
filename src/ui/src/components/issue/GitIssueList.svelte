@@ -1,6 +1,7 @@
 <script lang="ts">
 import type { ClassValue } from 'svelte/elements';
 import { gitIssueList, selectedGitRepo, selectedGitIssue, updateSelectedGitIssue } from '../../lib/store.js';
+import { formatEpocMillis } from '../../lib/utils.ts';
 
 let { class: className, onAddIssue }: { class?: ClassValue; onAddIssue: () => void } = $props();
 
@@ -55,10 +56,10 @@ function addIssue() {
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                                         </svg>
                                     </div>
-                                    <p class="text-xs text-gray-500 truncate">{issue.author.displayName}</p>
+                                    <p class="text-xs text-gray-500 truncate">{issue.createdBy.displayName}</p>
                                 </div>
                                 <span class="text-xs text-gray-500">•</span>
-                                <span class="text-xs text-gray-500">{issue.createdAt.split(' ')[0]}</span>
+                                <span class="text-xs text-gray-500">{formatEpocMillis(issue.createdAt, 'yyyy-MM-dd')}</span>
                             </div>
                         </button>
                     </li>

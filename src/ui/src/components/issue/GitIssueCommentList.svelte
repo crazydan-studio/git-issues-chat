@@ -3,6 +3,7 @@ import type { ClassValue } from 'svelte/elements';
 import { gitIssueCommentList, selectedGitIssue, appUser } from '../../lib/store.js';
 import { saveGitIssueComment } from '../../lib/bridge.js';
 import { showNotification } from '../../lib/store.js';
+import { formatEpocMillis } from '../../lib/utils.ts';
 
 let { class: className }: { class?: ClassValue } = $props();
 
@@ -54,14 +55,14 @@ function handleKeyPress(event) {
             </div>
         {:else}
             {#each $gitIssueCommentList as comment (comment.id)}
-                {#if comment.author.username === currentUser?.username}
+                {#if comment.createdBy.username === currentUser?.username}
                     <!-- Current user's comment - right aligned -->
                     <div class="flex justify-end">
                         <div class="bg-blue-500 text-white rounded-lg p-3 shadow-sm max-w-[80%]">
                             <div class="flex items-center mb-2 justify-end">
                                 <div>
-                                    <p class="text-sm font-medium">{comment.author.displayName} (You)</p>
-                                    <p class="text-xs opacity-80">{comment.createdAt}</p>
+                                    <p class="text-sm font-medium">{comment.createdBy.displayName} (You)</p>
+                                    <p class="text-xs opacity-80">{formatEpocMillis(comment.createdAt, 'yyyy-MM-dd HH:mm:ss')}</p>
                                 </div>
                                 <div class="bg-gray-200 border-2 border-dashed rounded-xl w-8 h-8 flex items-center justify-center ml-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -83,8 +84,8 @@ function handleKeyPress(event) {
                                     </svg>
                                 </div>
                                 <div>
-                                    <p class="text-sm font-medium text-gray-900">{comment.author.displayName}</p>
-                                    <p class="text-xs text-gray-500">{comment.createdAt}</p>
+                                    <p class="text-sm font-medium text-gray-900">{comment.createdBy.displayName}</p>
+                                    <p class="text-xs text-gray-500">{formatEpocMillis(comment.createdAt, 'yyyy-MM-dd HH:mm:ss')}</p>
                                 </div>
                             </div>
                             <p class="text-gray-700">{comment.content}</p>
