@@ -29,7 +29,7 @@ func GetAppInfo(e ui.Event) any {
 // VerifyAppUser verifies user password
 func VerifyAppUser(e ui.Event) any {
 	// Parse input parameters
-	params, err := ui.GetArg[map[string]interface{}](e)
+	params, err := ui.GetArg[ParamsOfVerifyAppUser](e)
 	if err != nil {
 		result := types.Response{
 			Success: false,
@@ -39,8 +39,8 @@ func VerifyAppUser(e ui.Event) any {
 	}
 	
 	// For simulation, we'll accept any non-empty password
-	password, _ := params["password"].(string)
-	userId, _ := params["userId"].(string)
+	password := params.Password
+	userId := params.UserId
 	
 	if (userId == "" && password != "") || (userId != "" && password != "") {
 		user := types.AppUser{
@@ -69,7 +69,7 @@ func VerifyAppUser(e ui.Event) any {
 // SaveAppUserInfo saves user information
 func SaveAppUserInfo(e ui.Event) any {
 	// Parse input parameters
-	params, err := ui.GetArg[map[string]interface{}](e)
+	params, err := ui.GetArg[ParamsOfSaveAppUserInfo](e)
 	if err != nil {
 		result := types.Response{
 			Success: false,
@@ -91,7 +91,7 @@ func SaveAppUserInfo(e ui.Event) any {
 // UpdateAppUserPassword updates user password
 func UpdateAppUserPassword(e ui.Event) any {
 	// Parse input parameters
-	params, err := ui.GetArg[map[string]interface{}](e)
+	params, err := ui.GetArg[ParamsOfUpdateAppUserPassword](e)
 	if err != nil {
 		result := types.Response{
 			Success: false,
@@ -113,7 +113,7 @@ func UpdateAppUserPassword(e ui.Event) any {
 // GetAppUserActionLogList gets user action log list
 func GetAppUserActionLogList(e ui.Event) any {
 	// Parse input parameters
-	params, err := ui.GetArg[map[string]interface{}](e)
+	params, err := ui.GetArg[ParamsOfGetAppUserActionLogList](e)
 	if err != nil {
 		result := types.Response{
 			Success: false,
@@ -122,7 +122,7 @@ func GetAppUserActionLogList(e ui.Event) any {
 		return result
 	}
 
-	userId, _ := params["userId"].(string)
+	userId := params.UserId
 	if userId == "" {
 		result := types.Response{
 			Success: false,

@@ -8,6 +8,19 @@ import (
 
 // GetGitIssueList returns list of issues for a Git repository
 func GetGitIssueList(e ui.Event) any {
+	// Parse input parameters
+	params, err := ui.GetArg[ParamsOfGetGitIssueList](e)
+	if err != nil {
+		result := types.Response{
+			Success: false,
+			Msg:     "Invalid parameters",
+		}
+		return result
+	}
+	
+	// Use the params to avoid "declared and not used" error
+	_ = params
+	
 	// For simulation, return 50 sample issues
 	issues := make([]types.GitIssue, 50)
 	
@@ -38,7 +51,7 @@ func GetGitIssueList(e ui.Event) any {
 // SaveGitIssue saves Git repository issue information
 func SaveGitIssue(e ui.Event) any {
 	// Parse input parameters
-	params, err := ui.GetArg[map[string]interface{}](e)
+	params, err := ui.GetArg[ParamsOfSaveGitIssue](e)
 	if err != nil {
 		result := types.Response{
 			Success: false,
@@ -59,6 +72,19 @@ func SaveGitIssue(e ui.Event) any {
 
 // GetGitIssueCommentList returns list of comments for a Git issue
 func GetGitIssueCommentList(e ui.Event) any {
+	// Parse input parameters
+	params, err := ui.GetArg[ParamsOfGetGitIssueCommentList](e)
+	if err != nil {
+		result := types.Response{
+			Success: false,
+			Msg:     "Invalid parameters",
+		}
+		return result
+	}
+	
+	// Use the params to avoid "declared and not used" error
+	_ = params
+	
 	// For simulation, return 30 sample comments with 10 from current user
 	comments := make([]types.GitIssueComment, 30)
 	
@@ -98,6 +124,19 @@ func GetGitIssueCommentList(e ui.Event) any {
 
 // GetGitIssueParticipantList returns list of participants for a Git issue
 func GetGitIssueParticipantList(e ui.Event) any {
+	// Parse input parameters
+	params, err := ui.GetArg[ParamsOfGetGitIssueParticipantList](e)
+	if err != nil {
+		result := types.Response{
+			Success: false,
+			Msg:     "Invalid parameters",
+		}
+		return result
+	}
+	
+	// Use the params to avoid "declared and not used" error
+	_ = params
+	
 	// For simulation, return 20 sample participants
 	participants := make([]types.GitUser, 20)
 	
@@ -122,7 +161,7 @@ func GetGitIssueParticipantList(e ui.Event) any {
 // SaveGitIssueComment creates a comment for a Git issue
 func SaveGitIssueComment(e ui.Event) any {
 	// Parse input parameters
-	params, err := ui.GetArg[map[string]interface{}](e)
+	params, err := ui.GetArg[ParamsOfSaveGitIssueComment](e)
 	if err != nil {
 		result := types.Response{
 			Success: false,

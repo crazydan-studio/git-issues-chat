@@ -9,7 +9,7 @@ import (
 // GetGitRepoList returns list of repositories for a Git platform
 func GetGitRepoList(e ui.Event) any {
 	// Parse input parameters
-	params, err := ui.GetArg[map[string]interface{}](e)
+	params, err := ui.GetArg[ParamsOfGetGitRepoList](e)
 	if err != nil {
 		result := types.Response{
 			Success: false,
@@ -18,7 +18,7 @@ func GetGitRepoList(e ui.Event) any {
 		return result
 	}
 	
-	platformId, _ := params["platformId"].(string)
+	platformId := params.PlatformId
 	
 	// For simulation, return 20 sample repositories
 	repos := make([]types.GitRepo, 20)
@@ -45,7 +45,7 @@ func GetGitRepoList(e ui.Event) any {
 // GetGitRepoInfo returns information about a specific repository
 func GetGitRepoInfo(e ui.Event) any {
 	// Parse input parameters
-	params, err := ui.GetArg[map[string]interface{}](e)
+	params, err := ui.GetArg[ParamsOfGetGitRepoInfo](e)
 	if err != nil {
 		result := types.Response{
 			Success: false,
@@ -54,8 +54,8 @@ func GetGitRepoInfo(e ui.Event) any {
 		return result
 	}
 	
-	platformId, _ := params["platformId"].(string)
-	repoName, _ := params["repoName"].(string)
+	platformId := params.PlatformId
+	repoName := params.RepoName
 	
 	// For simulation, return sample repository info
 	repo := types.GitRepo{
@@ -76,7 +76,7 @@ func GetGitRepoInfo(e ui.Event) any {
 // SaveGitRepo saves repository information to a Git platform
 func SaveGitRepo(e ui.Event) any {
 	// Parse input parameters
-	params, err := ui.GetArg[map[string]interface{}](e)
+	params, err := ui.GetArg[ParamsOfSaveGitRepo](e)
 	if err != nil {
 		result := types.Response{
 			Success: false,

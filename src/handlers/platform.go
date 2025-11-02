@@ -36,7 +36,7 @@ func GetGitPlatformList(e ui.Event) any {
 // SaveGitPlatform saves Git platform information
 func SaveGitPlatform(e ui.Event) any {
 	// Parse input parameters
-	params, err := ui.GetArg[map[string]interface{}](e)
+	params, err := ui.GetArg[ParamsOfSaveGitPlatform](e)
 	if err != nil {
 		result := types.Response{
 			Success: false,
