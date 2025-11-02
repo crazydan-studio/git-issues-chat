@@ -77,3 +77,59 @@ export interface GitIssueComment {
   createdBy: GitUser;
   createdAt: number;
 }
+
+// Parameter interfaces for bridge functions
+export interface ParamsOfVerifyAppUser {
+  userId?: string;
+  password: string;
+}
+
+export interface ParamsOfSaveAppUserInfo {
+  // Add fields as needed based on what the frontend sends
+}
+
+export interface ParamsOfUpdateAppUserPassword {
+  // Add fields as needed based on what the frontend sends
+}
+
+export interface ParamsOfGetGitRepoList {
+  platformId: string;
+}
+
+export interface ParamsOfGetGitRepoInfo {
+  platformId: string;
+  repoName: string;
+}
+
+export interface ParamsOfSaveGitPlatform {
+  // Add fields as needed based on what the frontend sends
+}
+
+export interface ParamsOfSaveGitRepo {
+  // Add fields as needed based on what the frontend sends
+}
+
+export interface ParamsOfGetGitIssueList {
+  repoId: string;
+}
+
+export interface ParamsOfSaveGitIssue {
+  // Add fields as needed based on what the frontend sends
+}
+
+export interface ParamsOfGetGitIssueCommentList {
+  issueId: string;
+}
+
+export interface ParamsOfGetGitIssueParticipantList {
+  issueId: string;
+}
+
+export interface ParamsOfSaveGitIssueComment {
+  issueId: string;
+  content: string;
+}
+
+export interface ParamsOfGetAppUserActionLogList {
+  userId: string;
+}
