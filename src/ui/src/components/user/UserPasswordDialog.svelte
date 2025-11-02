@@ -1,7 +1,7 @@
 <script lang="ts">
-    import { appUser, showUserPasswordDialog } from '../../lib/store.js';
-    import { updateAppUserPassword } from '../../lib/bridge.js';
-    import { showNotification } from '../../lib/store.js';
+    import { appUser, showUserPasswordDialog } from '../../lib/store';
+    import { updateAppUserPassword } from '../../lib/bridge';
+    import { showNotification } from '../../lib/store';
     import Dialog from '../../lib/components/Dialog.svelte';
 
     let oldPassword = $state('');
@@ -36,25 +36,20 @@
         if (!$appUser) return;
 
         isUpdating = true;
-        try {
-            const result = await updateAppUserPassword({
-                userId: $appUser.id,
-                oldPassword,
-                newPassword,
-                newPasswordConfirm
-            });
+        const result = await updateAppUserPassword({
+            userId: $appUser.id,
+            oldPassword,
+            newPassword,
+            newPasswordConfirm
+        });
 
-            if (result.success) {
-                showNotification('success', 'Password updated successfully');
-                closeDialog();
-            } else {
-                showNotification('error', result.msg || 'Failed to update password');
-            }
-        } catch (error: any) {
-            showNotification('error', 'Failed to update password: ' + error.message);
-        } finally {
-            isUpdating = false;
+        if (result.success) {
+            showNotification('success', 'Password updated successfully');
+            closeDialog();
+        } else {
+            showNotification('error', result.msg || 'Failed to update password');
         }
+        isUpdating = false;
     }
 </script>
 

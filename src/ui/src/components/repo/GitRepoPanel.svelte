@@ -1,8 +1,8 @@
 <script lang="ts">
 import { onMount } from 'svelte';
 import type { ClassValue } from 'svelte/elements';
-import { gitPlatformList, selectedGitPlatform, gitRepoList, selectedGitRepo, showAddPlatformDialog, showAddRepoDialog } from '../../lib/store.js';
-import { getGitPlatformList, getGitRepoList } from '../../lib/bridge.js';
+import { gitPlatformList, selectedGitPlatform, gitRepoList, selectedGitRepo, showAddPlatformDialog, showAddRepoDialog } from '../../lib/store';
+import { getGitPlatformList, getGitRepoList } from '../../lib/bridge';
 import GitPlatformList from './GitPlatformList.svelte';
 import GitRepoList from './GitRepoList.svelte';
 import GitPlatformAddDialog from './GitPlatformAddDialog.svelte';
@@ -13,7 +13,7 @@ let { class: className }: { class?: ClassValue } = $props();
 // Load platform list on mount
 onMount(async () => {
     const result = await getGitPlatformList();
-    if (result.success) {
+    if (result.success && result.data) {
         gitPlatformList.set(result.data);
     }
 });
@@ -25,9 +25,9 @@ $effect(() => {
     }
 });
 
-async function loadRepoList(platformId) {
+async function loadRepoList(platformId: string) {
     const result = await getGitRepoList({ platformId });
-    if (result.success) {
+    if (result.success && result.data) {
         gitRepoList.set(result.data);
     }
 }

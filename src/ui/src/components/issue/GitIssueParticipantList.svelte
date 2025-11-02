@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { ClassValue } from 'svelte/elements';
-import { gitIssueParticipantList } from '../../lib/store.js';
+import { gitIssueParticipantList } from '../../lib/store';
 
 let { class: className }: { class?: ClassValue } = $props();
 </script>

@@ -1,15 +1,16 @@
 <script lang="ts">
 import type { ClassValue } from 'svelte/elements';
-import { gitIssueCommentList, selectedGitIssue, appUser } from '../../lib/store.js';
-import { saveGitIssueComment } from '../../lib/bridge.js';
-import { showNotification } from '../../lib/store.js';
-import { formatEpocMillis } from '../../lib/utils.ts';
+import type { AppUser } from '../../lib/types';
+import { gitIssueCommentList, selectedGitIssue, appUser } from '../../lib/store';
+import { saveGitIssueComment } from '../../lib/bridge';
+import { showNotification } from '../../lib/store';
+import { formatEpocMillis } from '../../lib/utils';
 
 let { class: className }: { class?: ClassValue } = $props();
 
 let newComment = $state('');
 let isSending = $state(false);
-let currentUser = $state(null);
+let currentUser = $state<AppUser | null>(null);
 
 $effect(() => {
     currentUser = $appUser;
@@ -19,28 +20,23 @@ async function sendComment() {
     if (!newComment.trim() || !$selectedGitIssue) return;
 
     isSending = true;
-    try {
-        const result = await saveGitIssueComment({
-            issueId: $selectedGitIssue.id,
-            content: newComment
-        });
+    const result = await saveGitIssueComment({
+        issueId: $selectedGitIssue.id,
+        content: newComment
+    });
 
-        if (result.success) {
-            // In a real app, we would add the comment to the list
-            // For now, we'll just show a success message
-            showNotification('success', 'Comment sent successfully');
-            newComment = '';
-        } else {
-            showNotification('error', result.msg || 'Failed to send comment');
-        }
-    } catch (error) {
-        showNotification('error', 'Failed to send comment: ' + error.message);
-    } finally {
-        isSending = false;
+    if (result.success) {
+        // In a real app, we would add the comment to the list
+        // For now, we'll just show a success message
+        showNotification('success', 'Comment sent successfully');
+        newComment = '';
+    } else {
+        showNotification('error', result.msg || 'Failed to send comment');
     }
+    isSending = false;
 }
 
-function handleKeyPress(event) {
+function handleKeyPress(event: KeyboardEvent) {
     if (event.key === 'Enter' && (event.ctrlKey || event.metaKey)) {
         sendComment();
     }

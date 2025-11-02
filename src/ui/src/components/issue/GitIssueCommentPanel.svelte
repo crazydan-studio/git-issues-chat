@@ -1,8 +1,8 @@
 <script lang="ts">
-    import { gitIssueCommentList, gitIssueParticipantList, selectedGitIssue } from '../../lib/store.js';
+    import { gitIssueCommentList, gitIssueParticipantList, selectedGitIssue } from '../../lib/store';
     import GitIssueCommentList from './GitIssueCommentList.svelte';
     import GitIssueParticipantList from './GitIssueParticipantList.svelte';
-    import { formatEpocMillis } from '../../lib/utils.ts';
+    import { formatEpocMillis } from '../../lib/utils';
 </script>
 
 <div class="flex flex-col flex-1">

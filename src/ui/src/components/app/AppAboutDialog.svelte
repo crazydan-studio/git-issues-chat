@@ -1,37 +1,24 @@
 <script lang="ts">
     import { onMount } from 'svelte';
-    import { showAboutDialog } from '../../lib/store.js';
-    import { getAppInfo } from '../../lib/bridge.js';
+    import { showAboutDialog } from '../../lib/store';
+    import { getAppInfo } from '../../lib/bridge';
     import Dialog from '../../lib/components/Dialog.svelte';
-    import type { App } from '../../lib/types.js';
+    import type { App } from '../../lib/types';
 
-    interface AppInfo extends App {}
-
-    let appInfo: AppInfo = $state({
-        name: 'Git Issues Chat',
-        version: '0.1.0',
-        author: 'Loading...',
-        source: 'Loading...',
-        license: { name: 'Loading...', url: '#' },
-        description: 'Loading...'
-    });
+    let appInfo: App | null = $state(null);
     let loading = $state(true);
+    let result: any = $state(null);
 
     function closeDialog() {
         showAboutDialog.set(false);
     }
 
     onMount(async () => {
-        try {
-            const result = await getAppInfo();
-            if (result.success) {
-                appInfo = result.data;
-            }
-        } catch (error) {
-            console.error('Failed to load app info:', error);
-        } finally {
-            loading = false;
+        result = await getAppInfo();
+        if (result.success && result.data) {
+            appInfo = result.data;
         }
+        loading = false;
     });
 </script>
 
@@ -61,7 +48,7 @@
                     </svg>
                     <p class="mt-2 text-gray-600">Loading...</p>
                 </div>
-            {:else}
+            {:else if appInfo}
                 <div class="text-center">
                     <div class="mx-auto bg-gray-200 border-2 border-dashed rounded-xl w-16 h-16 flex items-center justify-center mb-4">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -92,6 +79,16 @@
                         <h4 class="font-medium text-gray-700">Description</h4>
                         <p class="text-gray-600">{appInfo.description}</p>
                     </div>
+                </div>
+            {:else}
+                <div class="text-center py-8">
+                    <div class="mx-auto bg-red-100 rounded-full p-3 w-16 h-16 flex items-center justify-center mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Failed to load app information</h3>
+                    <p class="text-gray-600">{result?.msg || 'An unknown error occurred while loading app information.'}</p>
                 </div>
             {/if}
         </div>

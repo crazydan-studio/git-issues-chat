@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { appUser, showUserProfileDialog, showUserPasswordDialog } from '../../lib/store.js';
+    import { appUser, showUserProfileDialog, showUserPasswordDialog } from '../../lib/store';
 
     let { onLockApp, onLogout, onShowActionLog }: { onLockApp: () => void; onLogout: () => void; onShowActionLog: () => void } = $props();
 

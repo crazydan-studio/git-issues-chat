@@ -1,10 +1,11 @@
 <script lang="ts">
 import type { ClassValue } from 'svelte/elements';
-import { gitRepoList, selectedGitPlatform, selectedGitRepo, updateSelectedGitRepo } from '../../lib/store.js';
+import type { GitRepo } from '../../lib/types';
+import { gitRepoList, selectedGitPlatform, selectedGitRepo, updateSelectedGitRepo } from '../../lib/store';
 
 let { class: className, onAddRepo }: { class?: ClassValue; onAddRepo: () => void } = $props();
 
-function selectRepo(repo) {
+function selectRepo(repo: GitRepo) {
     updateSelectedGitRepo(repo);
 }
 

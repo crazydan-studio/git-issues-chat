@@ -1,7 +1,7 @@
 <script lang="ts">
-    import { showAddPlatformDialog } from '../../lib/store.js';
-    import { saveGitPlatform } from '../../lib/bridge.js';
-    import { showNotification } from '../../lib/store.js';
+    import { showAddPlatformDialog } from '../../lib/store';
+    import { saveGitPlatform } from '../../lib/bridge';
+    import { showNotification } from '../../lib/store';
     import Dialog from '../../lib/components/Dialog.svelte';
 
     let name = $state('');
@@ -26,25 +26,20 @@
         }
 
         isSaving = true;
-        try {
-            const result = await saveGitPlatform({
-                name,
-                url,
-                icon,
-                description
-            });
+        const result = await saveGitPlatform({
+            name,
+            url,
+            icon,
+            description
+        });
 
-            if (result.success) {
-                showNotification('success', 'Platform added successfully');
-                closeDialog();
-            } else {
-                showNotification('error', result.msg || 'Failed to add platform');
-            }
-        } catch (error: any) {
-            showNotification('error', 'Failed to add platform: ' + error.message);
-        } finally {
-            isSaving = false;
+        if (result.success) {
+            showNotification('success', 'Platform added successfully');
+            closeDialog();
+        } else {
+            showNotification('error', result.msg || 'Failed to add platform');
         }
+        isSaving = false;
     }
 </script>
 

@@ -1,7 +1,7 @@
 <script lang="ts">
-    import { showAddRepoDialog } from '../../lib/store.js';
-    import { getGitRepoInfo, saveGitRepo } from '../../lib/bridge.js';
-    import { showNotification } from '../../lib/store.js';
+    import { showAddRepoDialog } from '../../lib/store';
+    import { getGitRepoInfo, saveGitRepo } from '../../lib/bridge';
+    import { showNotification } from '../../lib/store';
     import Dialog from '../../lib/components/Dialog.svelte';
 
     // Form states: 'input' for repo input, 'confirm' for repo confirmation
@@ -48,28 +48,23 @@
         }
 
         isFetching = true;
-        try {
-            const result = await getGitRepoInfo({
-                platformId: platformUrl, // In a real app, this would be the actual platform ID
-                repoName
-            });
+        const result = await getGitRepoInfo({
+            platformId: platformUrl, // In a real app, this would be the actual platform ID
+            repoName
+        });
 
-            if (result.success) {
-                repoInfo = {
-                    name: result.data.name || repoName,
-                    url: result.data.url || `${platformUrl}/${repoName}`,
-                    icon: result.data.icon || 'repo-icon-default',
-                    description: result.data.description || ''
-                };
-                formState = 'confirm';
-            } else {
-                showNotification('error', result.msg || 'Failed to fetch repository information');
-            }
-        } catch (error: any) {
-            showNotification('error', 'Failed to fetch repository information: ' + error.message);
-        } finally {
-            isFetching = false;
+        if (result.success && result.data) {
+            repoInfo = {
+                name: result.data.name || repoName,
+                url: result.data.url || `${platformUrl}/${repoName}`,
+                icon: result.data.icon || 'repo-icon-default',
+                description: result.data.description || ''
+            };
+            formState = 'confirm';
+        } else {
+            showNotification('error', result.msg || 'Failed to fetch repository information');
         }
+        isFetching = false;
     }
 
     async function saveRepo() {
@@ -79,26 +74,21 @@
         }
 
         isSaving = true;
-        try {
-            const result = await saveGitRepo({
-                platform: platformUrl, // In a real app, this would be the actual platform ID
-                name: repoName,
-                url: repoInfo.url,
-                icon: repoInfo.icon,
-                description: repoInfo.description
-            });
+        const result = await saveGitRepo({
+            platform: platformUrl, // In a real app, this would be the actual platform ID
+            name: repoName,
+            url: repoInfo.url,
+            icon: repoInfo.icon,
+            description: repoInfo.description
+        });
 
-            if (result.success) {
-                showNotification('success', 'Repository added successfully');
-                closeDialog();
-            } else {
-                showNotification('error', result.msg || 'Failed to add repository');
-            }
-        } catch (error: any) {
-            showNotification('error', 'Failed to add repository: ' + error.message);
-        } finally {
-            isSaving = false;
+        if (result.success) {
+            showNotification('success', 'Repository added successfully');
+            closeDialog();
+        } else {
+            showNotification('error', result.msg || 'Failed to add repository');
         }
+        isSaving = false;
     }
 </script>
 

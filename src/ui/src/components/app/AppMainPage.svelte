@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { clearAllStates } from '../../lib/store.js';
+    import { clearAllStates } from '../../lib/store';
     import AppMainPageHeader from './AppMainPageHeader.svelte';
     import AppMainPageFooter from './AppMainPageFooter.svelte';
     import ChatPanel from '../chat/ChatPanel.svelte';

@@ -1,7 +1,7 @@
 <script lang="ts">
-    import { appUser, showUserProfileDialog } from '../../lib/store.js';
-    import { saveAppUserInfo } from '../../lib/bridge.js';
-    import { showNotification } from '../../lib/store.js';
+    import { appUser, showUserProfileDialog } from '../../lib/store';
+    import { saveAppUserInfo } from '../../lib/bridge';
+    import { showNotification } from '../../lib/store';
     import Dialog from '../../lib/components/Dialog.svelte';
 
     let displayName = $state('');
@@ -23,24 +23,19 @@
         if (!$appUser) return;
 
         isSaving = true;
-        try {
-            const result = await saveAppUserInfo({
-                id: $appUser.id,
-                displayName,
-                avatar
-            });
+        const result = await saveAppUserInfo({
+            id: $appUser.id,
+            displayName,
+            avatar
+        });
 
-            if (result.success) {
-                showNotification('success', 'Profile updated successfully');
-                closeDialog();
-            } else {
-                showNotification('error', result.msg || 'Failed to update profile');
-            }
-        } catch (error: any) {
-            showNotification('error', 'Failed to update profile: ' + error.message);
-        } finally {
-            isSaving = false;
+        if (result.success) {
+            showNotification('success', 'Profile updated successfully');
+            closeDialog();
+        } else {
+            showNotification('error', result.msg || 'Failed to update profile');
         }
+        isSaving = false;
     }
 </script>
 

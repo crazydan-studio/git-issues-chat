@@ -1,6 +1,6 @@
 <script lang="ts">
-    import { appUser, showAboutDialog, showNotification } from '../../lib/store.js';
-    import { verifyAppUser } from '../../lib/bridge.js';
+    import { appUser, showAboutDialog, showNotification } from '../../lib/store';
+    import { verifyAppUser } from '../../lib/bridge';
     import AppAboutDialog from './AppAboutDialog.svelte';
 
     let password = '';
@@ -13,20 +13,15 @@
         }
 
         isVerifying = true;
-        try {
-            const result = await verifyAppUser({ password });
-            if (result.success) {
-                appUser.set(result.data);
-                // Reset password field
-                password = '';
-            } else {
-                showNotification('error', result.msg || 'Authentication failed');
-            }
-        } catch (error: any) {
-            showNotification('error', 'Authentication failed: ' + error.message);
-        } finally {
-            isVerifying = false;
+        const result = await verifyAppUser({ password });
+        if (result.success && result.data) {
+            appUser.set(result.data);
+            // Reset password field
+            password = '';
+        } else {
+            showNotification('error', result.msg || 'Authentication failed');
         }
+        isVerifying = false;
     }
 
     function handleKeyPress(event: KeyboardEvent) {

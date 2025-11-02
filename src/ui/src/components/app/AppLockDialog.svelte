@@ -1,7 +1,7 @@
 <script lang="ts">
-    import { appUser } from '../../lib/store.js';
-    import { verifyAppUser } from '../../lib/bridge.js';
-    import { showNotification } from '../../lib/store.js';
+    import { appUser } from '../../lib/store';
+    import { verifyAppUser } from '../../lib/bridge';
+    import { showNotification } from '../../lib/store';
     import Dialog from '../../lib/components/Dialog.svelte';
 
     let { onClose }: { onClose: () => void } = $props();
@@ -22,21 +22,16 @@
         }
 
         isVerifying = true;
-        try {
-            const result = await verifyAppUser({ userId, password });
-            if (result.success) {
-                // User is already in store, no need to update
-                password = ''; // Reset password field
-                // Close the dialog on successful authentication
-                onClose();
-            } else {
-                showNotification('error', result.msg || 'Authentication failed');
-            }
-        } catch (error: any) {
-            showNotification('error', 'Authentication failed: ' + error.message);
-        } finally {
-            isVerifying = false;
+        const result = await verifyAppUser({ userId, password });
+        if (result.success) {
+            // User is already in store, no need to update
+            password = ''; // Reset password field
+            // Close the dialog on successful authentication
+            onClose();
+        } else {
+            showNotification('error', result.msg || 'Authentication failed');
         }
+        isVerifying = false;
     }
 
     function handleKeyPress(event: KeyboardEvent) {

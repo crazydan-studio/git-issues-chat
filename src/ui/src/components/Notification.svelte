@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { notification } from '../lib/store.js';
+    import { notification } from '../lib/store';
 </script>
 
 {#if $notification.message}

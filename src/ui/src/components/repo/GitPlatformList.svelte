@@ -1,10 +1,11 @@
 <script lang="ts">
 import type { ClassValue } from 'svelte/elements';
-import { gitPlatformList, selectedGitPlatform, updateSelectedGitPlatform } from '../../lib/store.js';
+import type { GitPlatform } from '../../lib/types';
+import { gitPlatformList, selectedGitPlatform, updateSelectedGitPlatform } from '../../lib/store';
 
 let { class: className, onAddPlatform }: { class?: ClassValue; onAddPlatform: () => void } = $props();
 
-function selectPlatform(platform) {
+function selectPlatform(platform: GitPlatform) {
     updateSelectedGitPlatform(platform);
 }
 

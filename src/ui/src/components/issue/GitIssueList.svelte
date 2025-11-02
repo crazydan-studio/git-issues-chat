@@ -1,11 +1,12 @@
 <script lang="ts">
 import type { ClassValue } from 'svelte/elements';
-import { gitIssueList, selectedGitRepo, selectedGitIssue, updateSelectedGitIssue } from '../../lib/store.js';
-import { formatEpocMillis } from '../../lib/utils.ts';
+import type { GitIssue } from '../../lib/types';
+import { gitIssueList, selectedGitRepo, selectedGitIssue, updateSelectedGitIssue } from '../../lib/store';
+import { formatEpocMillis } from '../../lib/utils';
 
 let { class: className, onAddIssue }: { class?: ClassValue; onAddIssue: () => void } = $props();
 
-function selectIssue(issue) {
+function selectIssue(issue: GitIssue) {
     updateSelectedGitIssue(issue);
 }
 

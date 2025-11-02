@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { ClassValue } from 'svelte/elements';
-import { gitIssueList, selectedGitRepo, selectedGitIssue, gitIssueCommentList, gitIssueParticipantList, showAddIssueDialog } from '../../lib/store.js';
-import { getGitIssueList, getGitIssueCommentList, getGitIssueParticipantList } from '../../lib/bridge.js';
+import { gitIssueList, selectedGitRepo, selectedGitIssue, gitIssueCommentList, gitIssueParticipantList, showAddIssueDialog } from '../../lib/store';
+import { getGitIssueList, getGitIssueCommentList, getGitIssueParticipantList } from '../../lib/bridge';
 import GitIssueList from './GitIssueList.svelte';
 import GitIssueCommentPanel from './GitIssueCommentPanel.svelte';
 import GitIssueAddDialog from './GitIssueAddDialog.svelte';
@@ -23,23 +23,23 @@ $effect(() => {
     }
 });
 
-async function loadIssueList(repoId) {
+async function loadIssueList(repoId: string) {
     const result = await getGitIssueList({ repoId });
-    if (result.success) {
+    if (result.success && result.data) {
         gitIssueList.set(result.data);
     }
 }
 
-async function loadCommentList(issueId) {
+async function loadCommentList(issueId: string) {
     const result = await getGitIssueCommentList({ issueId });
-    if (result.success) {
+    if (result.success && result.data) {
         gitIssueCommentList.set(result.data);
     }
 }
 
-async function loadParticipantList(issueId) {
+async function loadParticipantList(issueId: string) {
     const result = await getGitIssueParticipantList({ issueId });
-    if (result.success) {
+    if (result.success && result.data) {
         gitIssueParticipantList.set(result.data);
     }
 }

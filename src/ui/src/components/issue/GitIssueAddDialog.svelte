@@ -1,7 +1,7 @@
 <script lang="ts">
-    import { showAddIssueDialog } from '../../lib/store.js';
-    import { saveGitIssue } from '../../lib/bridge.js';
-    import { showNotification } from '../../lib/store.js';
+    import { showAddIssueDialog } from '../../lib/store';
+    import { saveGitIssue } from '../../lib/bridge';
+    import { showNotification } from '../../lib/store';
     import Dialog from '../../lib/components/Dialog.svelte';
 
     let title = $state('');
@@ -22,23 +22,18 @@
         }
 
         isSaving = true;
-        try {
-            const result = await saveGitIssue({
-                title,
-                content
-            });
+        const result = await saveGitIssue({
+            title,
+            content
+        });
 
-            if (result.success) {
-                showNotification('success', 'Issue created successfully');
-                closeDialog();
-            } else {
-                showNotification('error', result.msg || 'Failed to create issue');
-            }
-        } catch (error: any) {
-            showNotification('error', 'Failed to create issue: ' + error.message);
-        } finally {
-            isSaving = false;
+        if (result.success) {
+            showNotification('success', 'Issue created successfully');
+            closeDialog();
+        } else {
+            showNotification('error', result.msg || 'Failed to create issue');
         }
+        isSaving = false;
     }
 </script>
 
