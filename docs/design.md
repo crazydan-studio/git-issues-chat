@@ -47,7 +47,9 @@ git-issues-chat/
 │   └── stages/     # Stage development documentation
 ├── src/            # Source code
 │   ├── handlers/   # Backend handler functions
+│   │   └── params.go # Strongly-typed parameter structures
 │   ├── main.go     # Application entry point
+│   ├── types/      # Backend type definitions
 │   └── ui/         # Svelte UI project
 └── VERSION         # Application version
 ```
@@ -126,15 +128,18 @@ The frontend components are organized by functionality:
 - `user/`: User-related components (profile, password management)
 
 ### State Management
-Application state is managed through Svelte stores with clear separation of concerns:
+Application state is managed through strongly-typed Svelte stores with clear separation of concerns:
 - Application state (user info, selected items)
 - UI state (dialog visibility, notifications)
 - Data lists (platforms, repositories, issues, comments, participants)
 - Action logs
 
+All stores are now strongly typed with TypeScript interfaces defined in `src/ui/src/lib/types.ts`.
+
 ### Bridge Layer
-Communication between frontend and backend is handled through a JavaScript bridge layer that:
+Communication between frontend and backend is handled through a TypeScript bridge layer that:
 - Provides generic function calling mechanism for Go handlers
 - Handles parameter serialization and return value deserialization
-- Implements error handling and notification display
-- Exposes specific wrapper functions for all backend handlers
+- Implements result-based error handling instead of exception interception
+- Exposes specific wrapper functions for all backend handlers with strong typing
+- Uses strongly-typed parameter structures following the "ParamsOf + FunctionName" naming convention

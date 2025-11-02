@@ -35,7 +35,9 @@ git-issues-chat/
 │   └── stages/     # Stage development documentation
 ├── src/            # Source code
 │   ├── handlers/   # Backend handler functions
+│   │   └── params.go # Strongly-typed parameter structures
 │   ├── main.go     # Application entry point
+│   ├── types/      # Backend type definitions
 │   └── ui/         # Svelte UI project
 └── VERSION         # Application version
 ```
