@@ -7,7 +7,20 @@ import type {
   GitIssue, 
   GitIssueComment,
   AppUserActionLog,
-  GitUser
+  GitUser,
+  ParamsOfVerifyAppUser,
+  ParamsOfSaveAppUserInfo,
+  ParamsOfUpdateAppUserPassword,
+  ParamsOfGetGitRepoList,
+  ParamsOfGetGitRepoInfo,
+  ParamsOfSaveGitPlatform,
+  ParamsOfSaveGitRepo,
+  ParamsOfGetGitIssueList,
+  ParamsOfSaveGitIssue,
+  ParamsOfGetGitIssueCommentList,
+  ParamsOfGetGitIssueParticipantList,
+  ParamsOfSaveGitIssueComment,
+  ParamsOfGetAppUserActionLogList
 } from './types';
 
 // Response interface for typed API responses
@@ -92,17 +105,17 @@ export async function getAppInfo(): Promise<Response<App>> {
     return result;
 }
 
-export async function verifyAppUser(params: {userId: string, password: string}): Promise<Response<AppUser>> {
+export async function verifyAppUser(params: ParamsOfVerifyAppUser): Promise<Response<AppUser>> {
     const result = await callGoFunction('verifyAppUser', params);
     return result;
 }
 
-export async function saveAppUserInfo(params: any): Promise<Response<null>> {
+export async function saveAppUserInfo(params: ParamsOfSaveAppUserInfo): Promise<Response<null>> {
     const result = await callGoFunction('saveAppUserInfo', params);
     return result;
 }
 
-export async function updateAppUserPassword(params: any): Promise<Response<null>> {
+export async function updateAppUserPassword(params: ParamsOfUpdateAppUserPassword): Promise<Response<null>> {
     const result = await callGoFunction('updateAppUserPassword', params);
     return result;
 }
@@ -112,52 +125,52 @@ export async function getGitPlatformList(): Promise<Response<GitPlatform[]>> {
     return result;
 }
 
-export async function saveGitPlatform(params: any): Promise<Response<null>> {
+export async function saveGitPlatform(params: ParamsOfSaveGitPlatform): Promise<Response<null>> {
     const result = await callGoFunction('saveGitPlatform', params);
     return result;
 }
 
-export async function getGitRepoList(params: {platformId: string}): Promise<Response<GitRepo[]>> {
+export async function getGitRepoList(params: ParamsOfGetGitRepoList): Promise<Response<GitRepo[]>> {
     const result = await callGoFunction('getGitRepoList', params);
     return result;
 }
 
-export async function getGitRepoInfo(params: {platformId: string, repoName: string}): Promise<Response<GitRepo>> {
+export async function getGitRepoInfo(params: ParamsOfGetGitRepoInfo): Promise<Response<GitRepo>> {
     const result = await callGoFunction('getGitRepoInfo', params);
     return result;
 }
 
-export async function saveGitRepo(params: any): Promise<Response<null>> {
+export async function saveGitRepo(params: ParamsOfSaveGitRepo): Promise<Response<null>> {
     const result = await callGoFunction('saveGitRepo', params);
     return result;
 }
 
-export async function getGitIssueList(params: {repoId: string}): Promise<Response<GitIssue[]>> {
+export async function getGitIssueList(params: ParamsOfGetGitIssueList): Promise<Response<GitIssue[]>> {
     const result = await callGoFunction('getGitIssueList', params);
     return result;
 }
 
-export async function saveGitIssue(params: any): Promise<Response<null>> {
+export async function saveGitIssue(params: ParamsOfSaveGitIssue): Promise<Response<null>> {
     const result = await callGoFunction('saveGitIssue', params);
     return result;
 }
 
-export async function getGitIssueCommentList(params: {issueId: string}): Promise<Response<GitIssueComment[]>> {
+export async function getGitIssueCommentList(params: ParamsOfGetGitIssueCommentList): Promise<Response<GitIssueComment[]>> {
     const result = await callGoFunction('getGitIssueCommentList', params);
     return result;
 }
 
-export async function getGitIssueParticipantList(params: {issueId: string}): Promise<Response<GitUser[]>> {
+export async function getGitIssueParticipantList(params: ParamsOfGetGitIssueParticipantList): Promise<Response<GitUser[]>> {
     const result = await callGoFunction('getGitIssueParticipantList', params);
     return result;
 }
 
-export async function saveGitIssueComment(params: any): Promise<Response<null>> {
+export async function saveGitIssueComment(params: ParamsOfSaveGitIssueComment): Promise<Response<null>> {
     const result = await callGoFunction('saveGitIssueComment', params);
     return result;
 }
 
-export async function getAppUserActionLogList(params: {userId: string}): Promise<Response<AppUserActionLog[]>> {
+export async function getAppUserActionLogList(params: ParamsOfGetAppUserActionLogList): Promise<Response<AppUserActionLog[]>> {
     const result = await callGoFunction('getAppUserActionLogList', params);
     return result;
 }
