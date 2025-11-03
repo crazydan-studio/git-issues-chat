@@ -20,5 +20,10 @@
     "tailwindcss": "^4.1.16",
     "typescript": "^5.9.3",
     "vite": "^7.1.7"
+  },
+  "dependencies": {
+    "lucide-svelte": "^0.552.0",
+    "micromark": "^4.0.2",
+    "svelte-markdown-input": "^0.0.2"
   }
 }

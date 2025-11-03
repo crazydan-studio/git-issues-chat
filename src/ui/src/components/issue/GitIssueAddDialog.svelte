@@ -3,6 +3,7 @@
     import { saveGitIssue } from '../../lib/bridge';
     import { showNotification } from '../../lib/store';
     import Dialog from '../../lib/components/Dialog.svelte';
+    import MarkdownInput from '../../lib/components/MarkdownInput.svelte';
 
     let title = $state('');
     let content = $state('');
@@ -57,13 +58,10 @@
 
             <div>
                 <label for="issueContent" class="block text-sm font-medium text-gray-700 mb-1">Content</label>
-                <textarea
-                    id="issueContent"
+                <MarkdownInput
                     bind:value={content}
-                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="Enter issue content"
-                    rows="6"
-                ></textarea>
+                    class="w-full"
+                />
             </div>
         </div>
     </Dialog>

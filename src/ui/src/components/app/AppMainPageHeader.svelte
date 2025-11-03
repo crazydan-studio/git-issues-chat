@@ -1,5 +1,6 @@
 <script lang="ts">
     import { appUser, showUserProfileDialog, showUserPasswordDialog } from '../../lib/store';
+    import { User, Settings, Lock, LogOut, FileText, Key } from 'lucide-svelte';
 
     let { onLockApp, onLogout, onShowActionLog }: { onLockApp: () => void; onLogout: () => void; onShowActionLog: () => void } = $props();
 
@@ -68,9 +69,7 @@
             aria-label="User menu"
         >
             <div class="bg-gray-200 border-2 border-dashed rounded-xl w-8 h-8 flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                </svg>
+                <User class="h-5 w-5 text-gray-500" />
             </div>
             <span class="text-gray-700 font-medium">{$appUser?.displayName || 'User'}</span>
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
@@ -82,32 +81,38 @@
             <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-200">
                 <button 
                     onclick={openProfile}
-                    class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center"
                 >
+                    <User class="h-4 w-4 mr-2" />
                     Profile
                 </button>
                 <button 
                     onclick={openPassword}
-                    class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center"
                 >
+                    <Key class="h-4 w-4 mr-2" />
                     Change Password
                 </button>
                 <button 
                     onclick={openActionLog}
-                    class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center"
                 >
+                    <FileText class="h-4 w-4 mr-2" />
                     Action Log
                 </button>
                 <button 
                     onclick={lockAppAndCloseMenu}
-                    class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center"
                 >
+                    <Lock class="h-4 w-4 mr-2" />
                     Lock App
                 </button>
+                <hr class="my-1 border-gray-200" />
                 <button 
                     onclick={logoutAndCloseMenu}
-                    class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center"
                 >
+                    <LogOut class="h-4 w-4 mr-2" />
                     Logout
                 </button>
             </div>

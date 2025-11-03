@@ -5,6 +5,8 @@ import { gitIssueCommentList, selectedGitIssue, appUser } from '../../lib/store'
 import { saveGitIssueComment } from '../../lib/bridge';
 import { showNotification } from '../../lib/store';
 import { formatEpocMillis } from '../../lib/utils';
+import MarkdownInput from '../../lib/components/MarkdownInput.svelte';
+import { micromark } from 'micromark';
 
 let { class: className }: { class?: ClassValue } = $props();
 
@@ -66,7 +68,7 @@ function handleKeyPress(event: KeyboardEvent) {
                                     </svg>
                                 </div>
                             </div>
-                            <p>{comment.content}</p>
+                            <p>{@html micromark(comment.content)}</p>
                         </div>
                     </div>
                 {:else}
@@ -84,7 +86,7 @@ function handleKeyPress(event: KeyboardEvent) {
                                     <p class="text-xs text-gray-500">{formatEpocMillis(comment.createdAt, 'yyyy-MM-dd HH:mm:ss')}</p>
                                 </div>
                             </div>
-                            <p class="text-gray-700">{comment.content}</p>
+                            <p class="text-gray-700">{@html micromark(comment.content)}</p>
                         </div>
                     </div>
                 {/if}
@@ -94,13 +96,10 @@ function handleKeyPress(event: KeyboardEvent) {
 
     <div class="border-t border-gray-200 p-4">
         <div class="relative">
-            <textarea
+            <MarkdownInput
                 bind:value={newComment}
-                onkeydown={handleKeyPress}
-                placeholder="Type a comment... (Ctrl+Enter to send)"
-                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
-                rows="3"
-            ></textarea>
+                class="w-full"
+            />
             <div class="absolute bottom-2 right-2">
                 <button
                     onclick={sendComment}
