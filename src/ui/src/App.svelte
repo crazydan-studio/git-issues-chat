@@ -3,7 +3,7 @@
     import AppAuthPage from './components/app/AppAuthPage.svelte';
     import AppMainPage from './components/app/AppMainPage.svelte';
     import AppLockDialog from './components/app/AppLockDialog.svelte';
-    import Notification from './components/Notification.svelte';
+    import { Notification } from './lib/components/Notification';
 
     let currentPage = $state('auth'); // 'auth' or 'chat'
     let showLockDialog = $state(false);
