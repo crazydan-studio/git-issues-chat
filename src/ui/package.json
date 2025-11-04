@@ -22,8 +22,15 @@
     "vite": "^7.1.7"
   },
   "dependencies": {
+    "@cartamd/plugin-attachment": "^4.2.0",
+    "@cartamd/plugin-code": "^4.2.0",
+    "@cartamd/plugin-emoji": "^4.3.0",
+    "@cartamd/plugin-math": "^4.3.1",
+    "@cartamd/plugin-slash": "^4.2.0",
+    "carta-md": "^4.11.1",
+    "isomorphic-dompurify": "^2.31.0",
+    "katex": "^0.16.25",
     "lucide-svelte": "^0.552.0",
-    "micromark": "^4.0.2",
-    "svelte-markdown-input": "^0.0.2"
+    "svoast": "^3.0.3"
   }
 }

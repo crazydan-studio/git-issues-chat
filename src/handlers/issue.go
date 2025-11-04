@@ -102,6 +102,21 @@ func GetGitIssueCommentList(e ui.Event) any {
 			displayName = fmt.Sprintf("Developer %d", userNum)
 		}
 		
+		// Create markdown content for comments
+		var content string
+		switch i % 5 {
+		case 0:
+			content = fmt.Sprintf("# Comment #%d\n\nThis is a sample comment from %s.\n\n## Key Points\n\n- Point one\n- Point two\n- Point three\n\n[Link to documentation](https://example.com)", i+1, displayName)
+		case 1:
+			content = fmt.Sprintf("## Update #%d\n\nHello team, I've reviewed the code and here are my thoughts:\n\n```go\nfunc example() {\n    fmt.Println(\"Hello, World!\")\n}\n```\n\nPlease review this implementation.", i+1)
+		case 2:
+			content = fmt.Sprintf("**Comment #%d** from *%s*\n\n**Laplace** transform:\n$$\n  \\mathcal{L}\\{f\\}(s) = \\int_0^{\\infty} {f(t)e^{-st}dt}\n$$\n\nI think we should consider the following:\n\n1. First item\n2. Second item\n3. Third item\n\n> This is an important quote from the documentation.\n\n---\n\nLet me know what you think.", i+1, displayName)
+		case 3:
+			content = fmt.Sprintf("# Technical Review #%d\n\n## Summary\n\nThis is a comprehensive review of the changes.\n\n## Code Changes\n\nThe following files were modified:\n\n- `src/main.go`\n- `src/handlers/issue.go`\n\n## Issues Found\n\n- [ ] Memory leak in function `GetIssues()`\n- [x] Fixed typo in variable name\n- [ ] Need to add more test cases\n\n@%s Please address these issues.", i+1, username)
+		case 4:
+			content = fmt.Sprintf("Comment #%d\n\nThis is a regular comment with some **bold text** and some *italic text*.\n\nHere's a list of items:\n\n* Item one\n* Item two\n* Item three\n\nAnd here's a numbered list:\n\n1. First step\n2. Second step\n3. Third step\n\n---\n\nThanks for your work on this!", i+1)
+		}
+		
 		comments[i] = types.GitIssueComment{
 			ID: fmt.Sprintf("0192d4a4-75d4-7f8a-8c7d-2f8b0d4f1a%02d", i),
 			CreatedBy: types.GitUser{
@@ -110,7 +125,7 @@ func GetGitIssueCommentList(e ui.Event) any {
 				URL:         fmt.Sprintf("https://github.com/%s", username),
 			},
 			CreatedAt: int64(1735689600000 + i*3600000), // Sample epoch time in milliseconds
-			Content:   fmt.Sprintf("This is sample comment #%d for the issue. This comment is from %s.", i+1, displayName),
+			Content:   content,
 		}
 	}
 	
