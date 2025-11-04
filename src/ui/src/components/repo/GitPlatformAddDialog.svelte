@@ -1,7 +1,7 @@
 <script lang="ts">
     import { showAddPlatformDialog } from '../../lib/store';
     import { saveGitPlatform } from '../../lib/bridge';
-    import { showNotification } from '../../lib/store';
+    import { Notify } from '../../lib/components/Notification';
     import Dialog from '../../lib/components/Dialog.svelte';
 
     let name = $state('');
@@ -21,7 +21,7 @@
 
     async function savePlatform() {
         if (!name || !url) {
-            showNotification('error', 'Platform name and URL are required');
+            Notify.warning('Platform name and URL are required');
             return;
         }
 
@@ -34,10 +34,10 @@
         });
 
         if (result.success) {
-            showNotification('success', 'Platform added successfully');
+            Notify.success('Platform added successfully');
             closeDialog();
         } else {
-            showNotification('error', result.msg || 'Failed to add platform');
+            Notify.error(result.msg || 'Failed to add platform');
         }
         isSaving = false;
     }

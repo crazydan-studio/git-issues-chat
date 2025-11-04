@@ -1,7 +1,7 @@
 <script lang="ts">
     import { appUser } from '../../lib/store';
     import { verifyAppUser } from '../../lib/bridge';
-    import { showNotification } from '../../lib/store';
+    import { Notify } from '../../lib/components/Notification';
     import Dialog from '../../lib/components/Dialog.svelte';
 
     let { onClose }: { onClose: () => void } = $props();
@@ -17,7 +17,7 @@
 
     async function handleUnlock() {
         if (!password) {
-            showNotification('error', 'Please enter a password');
+            Notify.warning('Please enter a password');
             return;
         }
 
@@ -29,7 +29,7 @@
             // Close the dialog on successful authentication
             onClose();
         } else {
-            showNotification('error', result.msg || 'Authentication failed');
+            Notify.error(result.msg || 'Authentication failed');
         }
         isVerifying = false;
     }

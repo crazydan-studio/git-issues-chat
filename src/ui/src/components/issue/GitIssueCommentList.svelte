@@ -3,10 +3,9 @@ import type { ClassValue } from 'svelte/elements';
 import type { AppUser } from '../../lib/types';
 import { gitIssueCommentList, selectedGitIssue, appUser } from '../../lib/store';
 import { saveGitIssueComment } from '../../lib/bridge';
-import { showNotification } from '../../lib/store';
+import { Notify } from '../../lib/components/Notification';
 import { formatEpocMillis } from '../../lib/utils';
-import MarkdownInput from '../../lib/components/MarkdownInput.svelte';
-import { micromark } from 'micromark';
+import { MarkdownEditor, MarkdownViewer } from '../../lib/components/Markdown';
 
 let { class: className }: { class?: ClassValue } = $props();
 
@@ -30,10 +29,10 @@ async function sendComment() {
     if (result.success) {
         // In a real app, we would add the comment to the list
         // For now, we'll just show a success message
-        showNotification('success', 'Comment sent successfully');
+        Notify.success('Comment sent successfully');
         newComment = '';
     } else {
-        showNotification('error', result.msg || 'Failed to send comment');
+        Notify.error(result.msg || 'Failed to send comment');
     }
     isSending = false;
 }
@@ -68,7 +67,7 @@ function handleKeyPress(event: KeyboardEvent) {
                                     </svg>
                                 </div>
                             </div>
-                            <p>{@html micromark(comment.content)}</p>
+                            <p><MarkdownViewer value={comment.content} /></p>
                         </div>
                     </div>
                 {:else}
@@ -86,7 +85,7 @@ function handleKeyPress(event: KeyboardEvent) {
                                     <p class="text-xs text-gray-500">{formatEpocMillis(comment.createdAt, 'yyyy-MM-dd HH:mm:ss')}</p>
                                 </div>
                             </div>
-                            <p class="text-gray-700">{@html micromark(comment.content)}</p>
+                            <p class="text-gray-700"><MarkdownViewer value={comment.content} /></p>
                         </div>
                     </div>
                 {/if}
@@ -95,10 +94,9 @@ function handleKeyPress(event: KeyboardEvent) {
     </div>
 
     <div class="border-t border-gray-200 p-4">
-        <div class="relative">
-            <MarkdownInput
+        <div class="relative w-full">
+            <MarkdownEditor
                 bind:value={newComment}
-                class="w-full"
             />
             <div class="absolute bottom-2 right-2">
                 <button

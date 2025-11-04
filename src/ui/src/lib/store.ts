@@ -39,7 +39,6 @@ export const showUserPasswordDialog = writable<boolean>(false);
 export const showAddPlatformDialog = writable<boolean>(false);
 export const showAddRepoDialog = writable<boolean>(false);
 export const showAddIssueDialog = writable<boolean>(false);
-export const notification = writable<{ type: string; message: string }>({ type: '', message: '' });
 
 // Update functions
 export const updateAppUser = (user: AppUser | null) => {
@@ -80,14 +79,6 @@ export const updateGitIssueParticipantList = (participants: GitUser[]) => {
 
 export const updateAppUserActionLogList = (logs: AppUserActionLog[]) => {
     appUserActionLogList.set(logs);
-};
-
-export const showNotification = (type: string, message: string) => {
-    notification.set({ type, message });
-    // Auto-hide notification after 3 seconds
-    setTimeout(() => {
-        notification.set({ type: '', message: '' });
-    }, 3000);
 };
 
 export const clearAllStates = () => {

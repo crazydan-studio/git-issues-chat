@@ -1,9 +1,9 @@
 <script lang="ts">
     import { showAddIssueDialog } from '../../lib/store';
     import { saveGitIssue } from '../../lib/bridge';
-    import { showNotification } from '../../lib/store';
+    import { Notify } from '../../lib/components/Notification';
     import Dialog from '../../lib/components/Dialog.svelte';
-    import MarkdownInput from '../../lib/components/MarkdownInput.svelte';
+    import { MarkdownEditor } from '../../lib/components/Markdown';
 
     let title = $state('');
     let content = $state('');
@@ -18,7 +18,7 @@
 
     async function saveIssue() {
         if (!title) {
-            showNotification('error', 'Issue title is required');
+            Notify.warning('Issue title is required');
             return;
         }
 
@@ -29,10 +29,10 @@
         });
 
         if (result.success) {
-            showNotification('success', 'Issue created successfully');
+            Notify.success('Issue created successfully');
             closeDialog();
         } else {
-            showNotification('error', result.msg || 'Failed to create issue');
+            Notify.error(result.msg || 'Failed to create issue');
         }
         isSaving = false;
     }
@@ -43,6 +43,7 @@
         title="Create New Issue"
         onClose={closeDialog}
         onConfirm={saveIssue}
+        class="w-4/5"
     >
         <div class="space-y-4">
             <div>
@@ -58,10 +59,11 @@
 
             <div>
                 <label for="issueContent" class="block text-sm font-medium text-gray-700 mb-1">Content</label>
-                <MarkdownInput
-                    bind:value={content}
-                    class="w-full"
-                />
+                <div class="w-full">
+                    <MarkdownEditor
+                        bind:value={content}
+                    />
+                </div>
             </div>
         </div>
     </Dialog>

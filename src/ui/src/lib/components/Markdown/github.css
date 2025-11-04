@@ -1,0 +1,196 @@
+.carta-theme__github {
+  /* Core styles - Light theme colors */
+  /* Background: light gray/white */
+  /* Border: light gray */
+  /* Accent: blue */
+
+  &.carta-editor {
+    background-color: #ffffff;
+    border: 1px solid #e1e4e8;
+    border-radius: 0.5rem;
+  }
+
+  &.carta-editor:focus-within {
+    outline: 2px solid #0366d6;
+  }
+
+  &.carta-editor .carta-wrapper {
+    padding: 1rem;
+    flex-grow: 1;
+  }
+
+  &.carta-editor .carta-input,
+  &.carta-editor .carta-renderer {
+    min-height: 120px;
+    max-height: 160px;
+    overflow: auto;
+  }
+
+  &.carta-editor .carta-font-code {
+    font-family: 'Fira Code', monospace;
+    caret-color: black;
+    font-size: 1.1rem;
+  }
+
+  &.carta-editor .carta-toolbar {
+    height: 2.5rem;
+    background-color: #f6f8fa;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+  }
+
+  &.carta-editor .carta-toolbar-left button,
+  &.carta-editor .carta-toolbar-right,
+  &.carta-editor .carta-filler {
+    border-bottom: 1px solid #e1e4e8;
+  }
+
+  &.carta-editor .carta-toolbar-left > *:first-child {
+    border-top-left-radius: 0.5rem;
+  }
+
+  &.carta-editor .carta-toolbar-left > * {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-size: 0.95rem;
+  }
+
+  &.carta-editor .carta-toolbar-left button {
+    height: 100%;
+  }
+
+  &.carta-editor .carta-toolbar-left .carta-active {
+    background-color: #ffffff;
+    color: #24292e;
+    border-right: 1px solid #e1e4e8;
+    border-bottom: 1px solid #ffffff;
+  }
+
+  &.carta-editor .carta-toolbar-left .carta-active:not(:first-child) {
+    border-left: 1px solid #e1e4e8;
+  }
+
+  &.carta-editor .carta-toolbar-right {
+    padding-right: 12px;
+  }
+
+  &.carta-editor .carta-icons-menu {
+    padding: 8px;
+    border: 1px solid #e1e4e8;
+    border-radius: 6px;
+    min-width: 180px;
+    background: #ffffff;
+  }
+
+  &.carta-editor .carta-icons-menu .carta-icon-full {
+    padding-left: 6px;
+    padding-right: 6px;
+    margin-top: 2px;
+  }
+
+  &.carta-editor .carta-icons-menu .carta-icon-full:first-child {
+    margin-top: 0;
+  }
+
+  &.carta-editor .carta-icons-menu .carta-icon-full:hover {
+    color: #24292e;
+    background-color: #e1e4e8;
+  }
+
+  &.carta-editor .carta-icons-menu .carta-icon-full span {
+    margin-left: 6px;
+    color: #24292e;
+    font-size: 0.85rem;
+  }
+
+  /* Plugin emoji */
+  &.carta-emoji {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    width: 19rem;
+    max-height: 14rem;
+    overflow-x: auto;
+    overflow-y: auto;
+    border-radius: 4px;
+    font-family: inherit;
+    background-color: #ffffff;
+    word-break: break-word;
+    scroll-padding: 6px;
+  }
+
+  &.carta-emoji button {
+    background: #f6f8fa;
+    cursor: pointer;
+    display: inline-block;
+    border-radius: 4px;
+    border: 0;
+    padding: 0;
+    margin: 0.175rem;
+    min-width: 2rem;
+    height: 2rem;
+    font-size: 1.2rem;
+    line-height: 100%;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  &.carta-emoji button:hover,
+  &.carta-emoji button.carta-active {
+    background: #e1e4e8;
+  }
+
+  /* Plugin slash */
+  &.carta-slash {
+    width: 18rem;
+    max-height: 14rem;
+    overflow-y: scroll;
+    border-radius: 4px;
+    font-family: inherit;
+    background-color: #ffffff;
+    padding: 6px;
+    scroll-padding: 6px;
+  }
+
+  &.carta-slash span {
+    width: fit-content;
+  }
+
+  &.carta-slash button {
+    background: none;
+    width: 100%;
+    padding: 10px;
+    border: 0;
+    border-radius: 4px;
+  }
+
+  &.carta-slash .carta-slash-group {
+    padding: 0 4px 0 4px;
+    margin-bottom: 4px;
+    font-size: 0.8rem;
+  }
+
+  &.carta-slash button.carta-active,
+  &.carta-slash button:hover {
+    background: #f6f8fa;
+    cursor: pointer;
+  }
+
+  &.carta-slash .carta-snippet-title {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #24292e;
+  }
+
+  &.carta-slash .carta-snippet-description {
+    font-size: 0.8rem;
+    text-overflow: ellipsis;
+    color: #586069;
+  }
+}
+
+/* Light theme syntax highlighting */
+.carta-theme__github .shiki,
+.carta-theme__github .shiki span {
+  color: var(--shiki-light) !important;
+}

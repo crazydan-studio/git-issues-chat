@@ -1,5 +1,6 @@
 <script lang="ts">
-    import { appUser, showAboutDialog, showNotification } from '../../lib/store';
+    import { appUser, showAboutDialog } from '../../lib/store';
+    import { Notify } from '../../lib/components/Notification';
     import { verifyAppUser } from '../../lib/bridge';
     import AppAboutDialog from './AppAboutDialog.svelte';
 
@@ -8,7 +9,7 @@
 
     async function handleLogin() {
         if (!password) {
-            showNotification('error', 'Please enter a password');
+            Notify.warning('Please enter a password', 5000);
             return;
         }
 
@@ -19,7 +20,7 @@
             // Reset password field
             password = '';
         } else {
-            showNotification('error', result.msg || 'Authentication failed');
+            Notify.error(result.msg || 'Authentication failed');
         }
         isVerifying = false;
     }

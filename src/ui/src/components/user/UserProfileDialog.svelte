@@ -1,7 +1,7 @@
 <script lang="ts">
     import { appUser, showUserProfileDialog } from '../../lib/store';
     import { saveAppUserInfo } from '../../lib/bridge';
-    import { showNotification } from '../../lib/store';
+    import { Notify } from '../../lib/components/Notification';
     import Dialog from '../../lib/components/Dialog.svelte';
 
     let displayName = $state('');
@@ -30,10 +30,10 @@
         });
 
         if (result.success) {
-            showNotification('success', 'Profile updated successfully');
+            Notify.success('Profile updated successfully');
             closeDialog();
         } else {
-            showNotification('error', result.msg || 'Failed to update profile');
+            Notify.error(result.msg || 'Failed to update profile');
         }
         isSaving = false;
     }

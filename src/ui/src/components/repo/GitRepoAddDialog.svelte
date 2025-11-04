@@ -1,7 +1,7 @@
 <script lang="ts">
     import { showAddRepoDialog } from '../../lib/store';
     import { getGitRepoInfo, saveGitRepo } from '../../lib/bridge';
-    import { showNotification } from '../../lib/store';
+    import { Notify } from '../../lib/components/Notification';
     import Dialog from '../../lib/components/Dialog.svelte';
 
     // Form states: 'input' for repo input, 'confirm' for repo confirmation
@@ -37,13 +37,13 @@
 
     async function fetchRepoInfo() {
         if (!platformUrl || !repoName) {
-            showNotification('error', 'Platform URL and repository name are required');
+            Notify.warning('Platform URL and repository name are required');
             return;
         }
 
         // Validate repo name format
         if (!repoName.includes('/') || repoName.split('/').length !== 2) {
-            showNotification('error', 'Repository name must be in the format <username>/<reponame>');
+            Notify.warning('Repository name must be in the format <username>/<reponame>');
             return;
         }
 
@@ -62,14 +62,14 @@
             };
             formState = 'confirm';
         } else {
-            showNotification('error', result.msg || 'Failed to fetch repository information');
+            Notify.error(result.msg || 'Failed to fetch repository information');
         }
         isFetching = false;
     }
 
     async function saveRepo() {
         if (!repoInfo.name || !repoInfo.url) {
-            showNotification('error', 'Repository name and URL are required');
+            Notify.warning('Repository name and URL are required');
             return;
         }
 
@@ -83,10 +83,10 @@
         });
 
         if (result.success) {
-            showNotification('success', 'Repository added successfully');
+            Notify.success('Repository added successfully');
             closeDialog();
         } else {
-            showNotification('error', result.msg || 'Failed to add repository');
+            Notify.error(result.msg || 'Failed to add repository');
         }
         isSaving = false;
     }

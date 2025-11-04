@@ -1,7 +1,7 @@
 <script lang="ts">
     import { appUser, showUserPasswordDialog } from '../../lib/store';
     import { updateAppUserPassword } from '../../lib/bridge';
-    import { showNotification } from '../../lib/store';
+    import { Notify } from '../../lib/components/Notification';
     import Dialog from '../../lib/components/Dialog.svelte';
 
     let oldPassword = $state('');
@@ -19,17 +19,17 @@
 
     async function updatePassword() {
         if (!oldPassword || !newPassword || !newPasswordConfirm) {
-            showNotification('error', 'Please fill in all fields');
+            Notify.warning('Please fill in all fields');
             return;
         }
 
         if (newPassword !== newPasswordConfirm) {
-            showNotification('error', 'New passwords do not match');
+            Notify.warning('New passwords do not match');
             return;
         }
 
         if (newPassword.length < 6) {
-            showNotification('error', 'Password must be at least 6 characters');
+            Notify.warning('Password must be at least 6 characters');
             return;
         }
 
@@ -44,10 +44,10 @@
         });
 
         if (result.success) {
-            showNotification('success', 'Password updated successfully');
+            Notify.success('Password updated successfully');
             closeDialog();
         } else {
-            showNotification('error', result.msg || 'Failed to update password');
+            Notify.error(result.msg || 'Failed to update password');
         }
         isUpdating = false;
     }

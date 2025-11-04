@@ -24,6 +24,23 @@
         class?: ClassValue;
     } = $props();
 
+    // Check if className contains a width class, if not provide a default
+    let dialogClass = $derived.by(() => {
+        // Convert className to string for checking
+        let classString = '';
+        if (typeof className === 'string') {
+            classString = className;
+        } else if (Array.isArray(className)) {
+            classString = className.filter(c => c).join(' ');
+        }
+        
+        // Check if classString contains any width classes (w-*)
+        if (!/w-/.test(classString)) {
+            return ['bg-white rounded-lg shadow-xl w-full max-w-md', classString];
+        }
+        return ['bg-white rounded-lg shadow-xl', classString];
+    });
+
     // Handle escape key
     function handleKeyDown(event: KeyboardEvent) {
         if (!disableEscape && event.key === 'Escape') {
@@ -42,8 +59,8 @@
     });
 </script>
 
-<div class={['fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50', className]}>
-    <div class="bg-white rounded-lg shadow-xl w-full max-w-md">
+<div class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+    <div class={dialogClass}>
         <!-- Header -->
         {#if header}
             {@render header()}
